@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
+import {initDatabase} from "./firebase";
 
 import WelcomeScene from './scenes/Welcome.scene';
 import HistoryOne from './scenes/HistoryOne.scene';
@@ -16,6 +17,7 @@ if (WEBGL.isWebGLAvailable()) {
   render();
 
   function init() {
+    initDatabase();
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
