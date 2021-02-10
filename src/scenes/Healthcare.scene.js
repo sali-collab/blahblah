@@ -4,7 +4,7 @@ const audioLoader = new THREE.AudioLoader();
 
 const floorRadius = 15;
 
-function HistoryOne(setScene) {
+function Healthcare(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
 
@@ -95,10 +95,10 @@ function HistoryOne(setScene) {
   }
 
   function loadAudios() {
-      const refDistance = 0.2;
+      const refDistance = 1;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/HistoryOne/audio1.ogg', function (buffer) {
+    audioLoader.load('static/audios/Healthcare/audio1.ogg', function (buffer) {
       cubeSound.setBuffer(buffer);
       cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
@@ -107,7 +107,7 @@ function HistoryOne(setScene) {
     });
     // cone sound
     coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/HistoryOne/audio2.ogg', function (buffer) {
+    audioLoader.load('static/audios/Healthcare/audio2.ogg', function (buffer) {
       coneSound.setBuffer(buffer);
       coneSound.setRefDistance(refDistance);
       coneSound.setLoop(true);
@@ -117,7 +117,7 @@ function HistoryOne(setScene) {
 
     // cylinder sound
     cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/HistoryOne/audio3.ogg', function (buffer) {
+    audioLoader.load('static/audios/Healthcare/audio3.ogg', function (buffer) {
       cylinderSound.setBuffer(buffer);
       cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
@@ -127,7 +127,7 @@ function HistoryOne(setScene) {
 
     // Torous sound
     torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/HistoryOne/audio4.ogg', function (buffer) {
+    audioLoader.load('static/audios/Healthcare/audio4.ogg', function (buffer) {
       torousSound.setBuffer(buffer);
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
@@ -137,7 +137,7 @@ function HistoryOne(setScene) {
 
     // TorousKnot sound
     torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/HistoryOne/audio5.ogg', function (buffer) {
+    audioLoader.load('static/audios/Healthcare/audio5.ogg', function (buffer) {
       torousKnotSound.setBuffer(buffer);
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
@@ -246,4 +246,4 @@ function HistoryOne(setScene) {
   };
 }
 
-export default HistoryOne;
+export default Healthcare;
