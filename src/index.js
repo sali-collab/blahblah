@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 
-//import WelcomeScene from './scenes/Welcome.scene';
+import WelcomeScene from './scenes/Welcome.scene';
 import HistoryOne from './scenes/HistoryOne.scene';
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -19,6 +19,8 @@ if (WEBGL.isWebGLAvailable()) {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
     var firstScene = HistoryOne(setScene);
@@ -32,7 +34,7 @@ if (WEBGL.isWebGLAvailable()) {
   function render() {
     requestAnimationFrame(render);
     if (update) update();
-    if(scene && camera)renderer.render(scene, camera);
+    if (scene && camera) renderer.render(scene, camera);
   }
 
   function setScene(sceneObj) {
