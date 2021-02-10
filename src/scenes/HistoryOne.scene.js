@@ -95,13 +95,14 @@ function HistoryOne(setScene) {
   }
 
   function loadAudios() {
-      const refDistance = 0.05;
+      const refDistance = 0.2;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/HistoryOne/audio1.ogg', function (buffer) {
       cubeSound.setBuffer(buffer);
       cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
+      cubeSound.play();
       audioLoaded();
     });
     // cone sound
@@ -110,6 +111,7 @@ function HistoryOne(setScene) {
       coneSound.setBuffer(buffer);
       coneSound.setRefDistance(refDistance);
       coneSound.setLoop(true);
+      coneSound.play();
       audioLoaded();
     });
 
@@ -119,6 +121,7 @@ function HistoryOne(setScene) {
       cylinderSound.setBuffer(buffer);
       cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
+      cylinderSound.play();
       audioLoaded();
     });
 
@@ -128,6 +131,7 @@ function HistoryOne(setScene) {
       torousSound.setBuffer(buffer);
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
+      torousSound.play();
       audioLoaded();
     });
 
@@ -137,7 +141,7 @@ function HistoryOne(setScene) {
       torousKnotSound.setBuffer(buffer);
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
-
+      torousKnotSound.play();
       audioLoaded();
     });
   }
@@ -164,7 +168,6 @@ function HistoryOne(setScene) {
     cube.position.copy(getPositionFromAngle(0));
     cube.add(cubeSound);
     scene.add(cube);
-    cubeSound.play();
 
     // Cone code
     var coneGeometry = new THREE.ConeGeometry(1, 2, 32);
@@ -177,7 +180,6 @@ function HistoryOne(setScene) {
     cone.position.copy(getPositionFromAngle(Math.PI * 0.4));
     scene.add(cone);
     cone.add(coneSound);
-    coneSound.play();
 
     // Cynder code
     const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
@@ -190,7 +192,6 @@ function HistoryOne(setScene) {
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
     cylinder.add(cylinderSound);
-    cylinderSound.play();
 
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
@@ -203,7 +204,6 @@ function HistoryOne(setScene) {
     torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
     scene.add(torus);
     torus.add(torousSound);
-    torousSound.play();
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
@@ -216,7 +216,6 @@ function HistoryOne(setScene) {
     torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
     scene.add(torusKnot);
     torusKnot.add(torousKnotSound);
-    torousKnotSound.play();
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
