@@ -56,7 +56,7 @@ function glimpsesScene(setScene,color) {
 }
 
 function goHealth() {
-  var hs = HealthScene(setScene);
+  var hs = HealthcareScene(setScene);
   setScene(hs);
 }
 
