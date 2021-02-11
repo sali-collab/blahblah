@@ -1,12 +1,17 @@
 import * as THREE from 'three';
 
-const audioLoader = new THREE.AudioLoader();
+import voteScene from "./vote.scene";
+import glimpsesScene from "./glimpses.scene";
 
+const audioLoader = new THREE.AudioLoader();
 const floorRadius = 15;
+var Back;
+var Vote;
 
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
+
 
   var audiosLoaded = 0;
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
@@ -86,6 +91,17 @@ function Education(setScene) {
     return new THREE.Vector3(x, yPos, y);
   }
 
+  function click () {
+    var ns = voteScene(setScene);
+    setScene(ns);
+  }
+
+  function clickBk () {
+  var bs = glimpsesScene (setScene);
+  setScene(bs);
+
+}
+
   function audioLoaded() {
     ++audiosLoaded;
     console.log(audiosLoaded);
@@ -147,6 +163,32 @@ function Education(setScene) {
   }
 
   function initObjects() {
+
+    var planeVote= new THREE.PlaneGeometry(113 / 50, 63 / 50);
+    var textureVote = new THREE.TextureLoader().load('static/imgs/Education_page/Vote.png');
+    var materialVote = new THREE.MeshBasicMaterial({ map: textureVote, transparent: true });
+    Vote = new THREE.Mesh(planeVote, materialVote);
+    Vote.position.set(5, 23, 0);
+    Vote.lookAt(camera.position);
+    scene.add(Vote);
+    Vote.cursor = 'pointer';
+    Vote.on('click', click);
+    Vote.on('touchstart', click);
+
+ 
+   var planeBack= new THREE.PlaneGeometry(116 / 50, 63 / 50);
+    var textureBack = new THREE.TextureLoader().load('static/imgs/Education_page/Back.png');
+    var materialBack = new THREE.MeshBasicMaterial({ map: textureBack, transparent: true });
+    Back = new THREE.Mesh(planeBack , materialBack );
+    Back.position.set(-5, 23, 0);
+    Back.lookAt(camera.position);
+    scene.add(Back);
+   Back.cursor = 'pointer';
+   Back.on('click', clickBk);
+   Back.on('touchstart', clickBk);
+
+
+
     // Floor code
     var floorGeometry = new THREE.CircleGeometry(floorRadius, 32);
     var floorMaterial = new THREE.MeshLambertMaterial({
