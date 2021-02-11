@@ -13,10 +13,10 @@ var scene;
 const constrains = { // where the bubbles can move 
   xMax: 1.25,
   xMin: -1,
-  yMax: 2.5,
-  yMin: -1,
+  yMax: 3,
+  yMin: -1.25,
 };
-const maxVel = 0.05; // speed 
+const maxVel = 0.025; // speed 
 
 var Background;
 var Impact;
@@ -113,10 +113,10 @@ function DataVisScene(setScene) {
   }
 
   function loadColors() {
-    colors['NO_VOTE'] = new THREE.Color(25, 0, 0);
-    colors['EDUCATION'] = new THREE.Color(0, 25, 0);
-    colors['HEALTH'] = new THREE.Color(0, 0, 25);
-    colors['SAFETY'] = new THREE.Color(0, 25, 25);
+    colors['NO_VOTE'] = new THREE.Color(239/255, 41/255, 70/255);
+    colors['EDUCATION'] = new THREE.Color(0, 153/255, 63/255);
+    colors['HEALTH'] = new THREE.Color(127/255, 152/255, 239/255);
+    colors['SAFETY'] = new THREE.Color(247/255, 240/255, 154/255);
   }
 
   function loadSize() {
