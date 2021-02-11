@@ -60,4 +60,8 @@ function setCallback(fn) {
   callbackFn = fn;
 }
 
-module.exports = { initDatabase, setCallback , pushVote};
+function getVotes() {
+  return votes;
+}
+
+module.exports = { initDatabase, setCallback, pushVote , getVotes};
