@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import { setCallback, getVotes } from '../firebase'; // setCall back incase someone makes a change, need to refresh page 
+import ImpactScene from "./Impact.scene";
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -56,6 +57,11 @@ function DataVisScene(setScene) {
     spotLight.position.set(10, 10, 10);
   }
 
+  function goImpact() {
+    var is = ImpactScene(setScene);
+    setScene(is);
+}
+
   function initObjects() {
     var planeBackground = new THREE.PlaneGeometry(1080 / 300, 1920 / 300);
     var textureBackground = textureLoader.load(
@@ -78,8 +84,11 @@ function DataVisScene(setScene) {
       transparent: true,
     });
     Impact = new THREE.Mesh(planeImpact, materialImpact);
-    Impact.position.set(1.6, 0, 0);
+    Impact.position.set(1.6, 0, 0.01);
     scene.add(Impact);
+  Impact.cursor = 'pointer';
+    Impact.on('click', goImpact);
+   Impact.on('touchstart', goImpact);
 
     loadTexttures();
     loadColors();
