@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "**/node_modules/**",
+      "**/src/**",
+      "**/.firebase/",
+      ".firebaserc",
+      "firebase.json",
+      "package.json",
+      "package-lock.json",
+      ".prettierc",
+      ".prettierignore",
+      ".gitignore",
+      "README.md",
+      "webpack.config.dev.prod.js",
+      "webpack.config.dev.dev.js"
+    ]
+  }
+}
