@@ -18,7 +18,7 @@ var firstLetter = true;
 var text = "";
 var textMesh;
 var font;
-var enterBtn;
+var Submit;
 
 
 
@@ -89,15 +89,20 @@ function NameScene(setScene) {
       createText();
     });
 
-    var enterMaterial = new THREE.MeshBasicMaterial({ color: new Color(255, 0, 0), transparent: true });
-    var enterGeometry = new THREE.BoxGeometry(0.5,0.2, 1);
-    enterBtn = new THREE.Mesh(enterGeometry, enterMaterial);
-    enterBtn.position.set(0, -2.75, 0.01);
-    enterBtn.pointer = "pointer";
-    enterBtn.on('click', () => setName(text));
-    enterBtn.on('touchstart', () => setName(text));
+    var planeSubmit = new THREE.PlaneGeometry(202/400, 100/400);
+    var textureSubmit = new THREE.TextureLoader().load('static/imgs/name_page/Submit.png');
+    var materialSubmit = new THREE.MeshBasicMaterial({ map: textureSubmit , transparent:true});
+    Submit = new THREE.Mesh(planeSubmit, materialSubmit);
+    Submit.position.set(0, -2.75, 0.01);
+    Submit.cursor = "pointer";
+    Submit.on('click', () => setName(text));
+    Submit.on('touchstart', () => setName(text));
+    scene.add(Submit);
 
-    scene.add(enterBtn);
+ 
+
+  
+    
   }
 
   function onDocumentKeyDown(event) {
