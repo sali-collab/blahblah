@@ -43,6 +43,7 @@ function WelcomeScene(setScene) {
   function overTheWindow(envet) {
     // hover
     if (!added) {
+      if (flyAudio) flyAudio.play();
       added = true;
       setTimeout(() => {
         scene.add(DareToEnter);
@@ -64,9 +65,9 @@ function WelcomeScene(setScene) {
   }
 
   function go() {
+    flyAudio.stop();
     var ns = RegistrationScene(setScene);
     setScene(ns);
-    flyAudio.stop();
   }
 
   function pad(number, length) {
@@ -105,6 +106,7 @@ function WelcomeScene(setScene) {
       flyAudio.setBuffer(buffer);
       flyAudio.setRefDistance(1);
       flyAudio.setLoop(true);
+      if (added) flyAudio.play();
       background.add(flyAudio);
     });
     var plane = new THREE.PlaneGeometry(1080 / 400, 1920 / 400);
@@ -166,7 +168,6 @@ function WelcomeScene(setScene) {
   let counter = 10;
   function update() {
     if (added) {
-      if (flyAudio) flyAudio.play();
       counter--;
       if (counter == 0) {
         counter = 10;
