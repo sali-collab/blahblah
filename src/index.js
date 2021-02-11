@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
-import {initDatabase} from "./firebase";
+import { initDatabase } from './firebase';
 
 import WelcomeScene from './scenes/Welcome.scene';
 
@@ -42,6 +42,11 @@ if (WEBGL.isWebGLAvailable()) {
   function setScene(sceneObj) {
     setTimeout(() => {
       if (destroy != null) destroy();
+      if (scene) {
+        while (scene.children.length > 0) {
+          scene.remove(scene.children[0]);
+        }
+      }
       scene = sceneObj.scene;
       camera = sceneObj.camera;
       update = sceneObj.update;
