@@ -49,8 +49,8 @@ function voteScene(setScene, color) {
   }
 
   function voteFor(option) {
-    const age = 25//getData('age');
-    const location = "SAN JOSE"//getData('from');
+    const age = getData('age');
+    const location = getData('from');
     pushVote(age, location, option);
     const ns = DataVisScene(setScene);
     setScene(ns);
