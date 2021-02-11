@@ -1,3 +1,6 @@
 node_modules/
 .DS_Store
 bundle.js
+.firebase/
+.firebaserc
+**/*.DS_Store

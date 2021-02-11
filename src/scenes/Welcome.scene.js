@@ -77,6 +77,16 @@ function WelcomeScene(setScene) {
     background.position.set(0, 0, 0);
     scene.add(background);
 
+    var planeWindow = new THREE.PlaneGeometry(229 / 1250, 431 / 1250);
+    var textureWindow = new THREE.TextureLoader().load('static/imgs/welcome_page/Window.png');
+    var materialwindowOfHouse = new THREE.MeshBasicMaterial({ map: textureWindow, transparent: true });
+    windowOfHouse = new THREE.Mesh(planeWindow, materialwindowOfHouse);
+    windowOfHouse.position.set(0.1, 0.48, 0.01);
+    scene.add(windowOfHouse);
+    windowOfHouse.on("mouseover", overTheWindow);
+    windowOfHouse.on("touchstart", overTheWindow);
+
+
     var planeBin = new THREE.PlaneGeometry(447 / 1400, 822 / 1400);
     var textureBin = new THREE.TextureLoader().load(
       'static/imgs/welcome_page/bin.png'
