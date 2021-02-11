@@ -72,7 +72,7 @@ function WelcomeScene(setScene) {
     scene.add(background);
 
     var planeWindow = new THREE.PlaneGeometry(229 / 1250, 431 / 1250);
-    var textureWindow = new THREE.TextureLoader().load('static/imgs/welcome_page/window.png');
+    var textureWindow = new THREE.TextureLoader().load('static/imgs/welcome_page/Window.png');
     var materialwindowOfHouse = new THREE.MeshBasicMaterial({ map: textureWindow, transparent: true });
     windowOfHouse = new THREE.Mesh(planeWindow, materialwindowOfHouse);
     windowOfHouse.position.set(0.1, 0.48, 0.01);
