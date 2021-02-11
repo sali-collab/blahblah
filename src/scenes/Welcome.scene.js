@@ -11,13 +11,13 @@ var fontLoader = new THREE.FontLoader();
 var camera;
 var scene;
 //Scene objs
-var cube;
-var logo;
-var text;
 var background;
 var windowOfHouse;
-var bin;
 var DareToEnter;
+
+var binTextures;
+var bin;
+var actualBinTexture = 1;
 
 function WelcomeScene(setScene) {
   camera = new THREE.PerspectiveCamera(
@@ -32,13 +32,13 @@ function WelcomeScene(setScene) {
 
   window.addEventListener('resize', onWindowResize, false);
   initLights();
+  loadBinTextures();
   initObjects();
 
   var added = false; // objects not added before the mouse
   function overTheWindow(envet) {
     // hover
     if (!added) {
-      scene.add(bin);
       added = true;
       setTimeout(() => {
         scene.add(DareToEnter);
@@ -64,6 +64,36 @@ function WelcomeScene(setScene) {
     setScene(ns);
   }
 
+  function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+      str = '0' + str;
+    }
+    return str;
+  }
+
+  function loadBinTextures() {
+    binTextures = [];
+    for (var index = 1; index <= 11; ++index) {
+      const filename = 'fly' + pad(index, 2) + '.png';
+      binTextures[index] = textureLoader.load(
+        '/static/imgs/welcome_page/flyAnima/' + filename
+      );
+    }
+  }
+
+  function createBin() {
+    if (bin) scene.remove(bin);
+    var planeBin = new THREE.PlaneGeometry(447 / 1400, 822 / 1400);
+    var materialBin = new THREE.MeshBasicMaterial({
+      map: binTextures[actualBinTexture],
+      transparent: true,
+    });
+    bin = new THREE.Mesh(planeBin, materialBin);
+    bin.position.set(0.8, -0.5, 0);
+    scene.add(bin);
+  }
+
   function initObjects() {
     var plane = new THREE.PlaneGeometry(1080 / 400, 1920 / 400);
     var texture = new THREE.TextureLoader().load(
@@ -78,25 +108,18 @@ function WelcomeScene(setScene) {
     scene.add(background);
 
     var planeWindow = new THREE.PlaneGeometry(229 / 1250, 431 / 1250);
-    var textureWindow = new THREE.TextureLoader().load('static/imgs/welcome_page/Window.png');
-    var materialwindowOfHouse = new THREE.MeshBasicMaterial({ map: textureWindow, transparent: true });
+    var textureWindow = new THREE.TextureLoader().load(
+      'static/imgs/welcome_page/Window.png'
+    );
+    var materialwindowOfHouse = new THREE.MeshBasicMaterial({
+      map: textureWindow,
+      transparent: true,
+    });
     windowOfHouse = new THREE.Mesh(planeWindow, materialwindowOfHouse);
     windowOfHouse.position.set(0.1, 0.48, 0.01);
     scene.add(windowOfHouse);
-    windowOfHouse.on("mouseover", overTheWindow);
-    windowOfHouse.on("touchstart", overTheWindow);
-
-
-    var planeBin = new THREE.PlaneGeometry(447 / 1400, 822 / 1400);
-    var textureBin = new THREE.TextureLoader().load(
-      'static/imgs/welcome_page/bin.png'
-    );
-    var materialBin = new THREE.MeshBasicMaterial({
-      map: textureBin,
-      transparent: true,
-    });
-    bin = new THREE.Mesh(planeBin, materialBin);
-    bin.position.set(0.8, -0.5, 0);
+    windowOfHouse.on('mouseover', overTheWindow);
+    windowOfHouse.on('touchstart', overTheWindow);
 
     var planeWindow = new THREE.PlaneGeometry(229 / 1250, 431 / 1250);
     var textureWindow = new THREE.TextureLoader().load(
@@ -128,7 +151,22 @@ function WelcomeScene(setScene) {
     DareToEnter.on('touchstart', go);
   }
 
-  function update() {}
+  let counter = 10;
+  function update() {
+    if (added) {
+      counter--;
+      if (counter == 0) {
+        counter = 10;
+        actualBinTexture++;
+
+        if (actualBinTexture > 11) {
+          actualBinTexture = 1;
+        }
+        createBin();
+
+      }
+    }
+  }
 
   return {
     scene,
