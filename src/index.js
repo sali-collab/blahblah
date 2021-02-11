@@ -40,6 +40,7 @@ if (WEBGL.isWebGLAvailable()) {
   }
 
   function setScene(sceneObj) {
+    if(interaction) interaction.destroy();
     setTimeout(() => {
       if (destroy != null) destroy();
       if (scene) {
