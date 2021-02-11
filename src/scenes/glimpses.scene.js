@@ -75,38 +75,7 @@ function goSafety() {
     Background.position.set(0,0, 0);
     scene.add(Background); 
 
-    var planeBird = new THREE.PlaneGeometry(101/400, 97/400);
-    var textureBird = new THREE.TextureLoader().load('static/imgs/glimpses_page/Bird.png');
-    var materialBird = new THREE.MeshBasicMaterial({ map: textureBird , transparent:true});
-    Bird = new THREE.Mesh(planeBird, materialBird);
-    Bird.position.set(0,-1, 0.01);
-    scene.add(Bird); 
 
-    Bird.cursor = 'pointer';
-    Bird.on('click', goHealth);
-    Bird.on('touchstart', goHealth);
-
-    var planeBaby = new THREE.PlaneGeometry(146/400, 193/400);
-    var textureBaby = new THREE.TextureLoader().load('static/imgs/glimpses_page/Baby.png');
-    var materialBaby = new THREE.MeshBasicMaterial({ map: textureBaby , transparent:true});
-    Baby = new THREE.Mesh(planeBaby, materialBaby);
-    Baby.position.set(-1.5,-1.5, 0.01);
-    scene.add(Baby); 
-
-    Baby.cursor = 'pointer';
-    Baby.on('click', goEducation);
-    Baby.on('touchstart', goEducation);
-
-    var planeShoe = new THREE.PlaneGeometry(488/300, 329/300);
-    var textureShoe= new THREE.TextureLoader().load('static/imgs/glimpses_page/Shoe.png');
-    var materialShoe = new THREE.MeshBasicMaterial({ map: textureShoe , transparent:true});
-    Shoe = new THREE.Mesh(planeShoe, materialShoe);
-    Shoe.position.set(-0.9,2.7, 0.01);
-    scene.add(Shoe); 
-
-    Shoe.cursor = 'pointer';
-    Shoe.on('click', goSafety);
-    Shoe.on('touchstart', goSafety);
 
    var planeText = new THREE.PlaneGeometry(581/300, 169/300);
    var textureText = new THREE.TextureLoader().load('static/imgs/glimpses_page/Text.png');
@@ -121,6 +90,39 @@ function goSafety() {
   Line= new THREE.Mesh(planeLine, materialLine);
   Line.position.set(-0.91,0.1, 0);
   scene.add(Line); 
+
+  var planeShoe = new THREE.PlaneGeometry(488/300, 329/300);
+  var textureShoe= new THREE.TextureLoader().load('static/imgs/glimpses_page/Shoe.png');
+  var materialShoe = new THREE.MeshBasicMaterial({ map: textureShoe , transparent:true});
+  Shoe = new THREE.Mesh(planeShoe, materialShoe);
+  Shoe.position.set(-0.9,2.7, 0.01);
+  scene.add(Shoe); 
+
+  Shoe.cursor = 'pointer';
+  Shoe.on('click', goSafety);
+  Shoe.on('touchstart', goSafety);
+
+  var planeBird = new THREE.PlaneGeometry(101/400, 97/400);
+  var textureBird = new THREE.TextureLoader().load('static/imgs/glimpses_page/Bird.png');
+  var materialBird = new THREE.MeshBasicMaterial({ map: textureBird , transparent:true});
+  Bird = new THREE.Mesh(planeBird, materialBird);
+  Bird.position.set(0,-1, 0.01);
+  scene.add(Bird); 
+
+  Bird.cursor = 'pointer';
+  Bird.on('click', goHealth);
+  Bird.on('touchstart', goHealth);
+
+  var planeBaby = new THREE.PlaneGeometry(146/400, 193/400);
+  var textureBaby = new THREE.TextureLoader().load('static/imgs/glimpses_page/Baby.png');
+  var materialBaby = new THREE.MeshBasicMaterial({ map: textureBaby , transparent:true});
+  Baby = new THREE.Mesh(planeBaby, materialBaby);
+  Baby.position.set(-1.5,-1.5, 0.01);
+  scene.add(Baby); 
+
+  Baby.cursor = 'pointer';
+  Baby.on('click', goEducation);
+  Baby.on('touchstart', goEducation);
 
   }
 
