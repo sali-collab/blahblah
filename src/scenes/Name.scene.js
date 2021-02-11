@@ -78,6 +78,11 @@ function NameScene(setScene) {
     var materialRedChoice = new THREE.MeshBasicMaterial({ map: textureRedChoice, transparent: true });
     background = new THREE.Mesh(planeRedChoice, materialRedChoice);
     background.position.set(0, 0, 0);
+
+    background.on("click",()=>{
+      document.getElementById('inputText').focus();
+    });
+
     scene.add(background);
     fontLoader.load('static/fonts/helvetiker_regular.typeface.json', (resource) => {
       font = resource;
