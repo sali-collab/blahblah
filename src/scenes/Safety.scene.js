@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import voteScene from "./vote.scene";
-import glimpsesScene from "./glimpses.scene";
+import voteScene from './vote.scene';
+import glimpsesScene from './glimpses.scene';
 
 const audioLoader = new THREE.AudioLoader();
 
@@ -86,17 +86,25 @@ function Safety(setScene) {
     spotLight.castShadow = true;
   }
 
+  function stopAll() {
+    cubeSound.stop();
+    coneSound.stop();
+    cylinderSound.stop();
+    torousSound.stop();
+    torousKnotSound.stop();
+  }
 
-  function click () {
+  function click() {
+    stopAll();
     var ns = voteScene(setScene);
     setScene(ns);
   }
 
-  function clickBk () {
-  var bs = glimpsesScene (setScene);
-  setScene(bs);
-
-}
+  function clickBk() {
+    stopAll();
+    var bs = glimpsesScene(setScene);
+    setScene(bs);
+  }
 
   function getPositionFromAngle(angle, yPos = 1) {
     const x = Math.sin(angle) * (floorRadius - 2);
@@ -113,7 +121,7 @@ function Safety(setScene) {
   }
 
   function loadAudios() {
-      const refDistance = 1;
+    const refDistance = 1;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/Safety/audio1.ogg', function (buffer) {
@@ -165,10 +173,14 @@ function Safety(setScene) {
   }
 
   function initObjects() {
-
-    var planeVote= new THREE.PlaneGeometry(113 / 50, 63 / 50);
-    var textureVote = new THREE.TextureLoader().load('static/imgs/Education_page/Vote.png');
-    var materialVote = new THREE.MeshBasicMaterial({ map: textureVote, transparent: true });
+    var planeVote = new THREE.PlaneGeometry(113 / 50, 63 / 50);
+    var textureVote = new THREE.TextureLoader().load(
+      'static/imgs/Education_page/Vote.png'
+    );
+    var materialVote = new THREE.MeshBasicMaterial({
+      map: textureVote,
+      transparent: true,
+    });
     Vote = new THREE.Mesh(planeVote, materialVote);
     Vote.position.set(5, 23, 0);
     Vote.lookAt(camera.position);
@@ -177,18 +189,21 @@ function Safety(setScene) {
     Vote.on('click', click);
     Vote.on('touchstart', click);
 
- 
-   var planeBack= new THREE.PlaneGeometry(116 / 50, 63 / 50);
-    var textureBack = new THREE.TextureLoader().load('static/imgs/Education_page/Back.png');
-    var materialBack = new THREE.MeshBasicMaterial({ map: textureBack, transparent: true });
-    Back = new THREE.Mesh(planeBack , materialBack );
+    var planeBack = new THREE.PlaneGeometry(116 / 50, 63 / 50);
+    var textureBack = new THREE.TextureLoader().load(
+      'static/imgs/Education_page/Back.png'
+    );
+    var materialBack = new THREE.MeshBasicMaterial({
+      map: textureBack,
+      transparent: true,
+    });
+    Back = new THREE.Mesh(planeBack, materialBack);
     Back.position.set(-5, 23, 0);
     Back.lookAt(camera.position);
     scene.add(Back);
-   Back.cursor = 'pointer';
-   Back.on('click', clickBk);
-   Back.on('touchstart', clickBk);
-
+    Back.cursor = 'pointer';
+    Back.on('click', clickBk);
+    Back.on('touchstart', clickBk);
 
     // Floor code
     var floorGeometry = new THREE.CircleGeometry(floorRadius, 32);
