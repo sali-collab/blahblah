@@ -84,8 +84,8 @@ function Registration3Scene(setScene) {
     Age18_25 = new THREE.Mesh(planeAge18_25, materialAge18_25);
     Age18_25.position.set(-0.45,-2, 0);
     Age18_25.pointer = "pointer"
-    Age18_25.on("click", () => setAge("18_25"));
-    Age18_25.on("touchstart", () => setAge("18_25"));
+    Age18_25.on("click", () => setAge("18"));
+    Age18_25.on("touchstart", () => setAge("18"));
     scene.add(Age18_25);
 
      
@@ -95,8 +95,8 @@ function Registration3Scene(setScene) {
     Age25_35 = new THREE.Mesh(planeAge25_35, materialAge25_35);
     Age25_35.position.set(-0.45,-2, 0);
     Age25_35.pointer = "pointer"
-    Age25_35.on("click", () => setAge("25_35"));
-    Age25_35.on("touchstart", () => setAge("25_35"));
+    Age25_35.on("click", () => setAge("25"));
+    Age25_35.on("touchstart", () => setAge("25"));
     scene.add(Age25_35);
 
     var planeAge35_45 = new THREE.PlaneGeometry(155/350, 91/350);
@@ -105,8 +105,8 @@ function Registration3Scene(setScene) {
     Age35_45 = new THREE.Mesh(planeAge35_45, materialAge35_45);
     Age35_45.position.set(0,-2, 0);
     Age35_45.pointer = "pointer"
-    Age35_45.on("click", () => setAge("35_45"));
-    Age35_45.on("touchstart", () => setAge("35_45"));
+    Age35_45.on("click", () => setAge("35"));
+    Age35_45.on("touchstart", () => setAge("35"));
     scene.add(Age35_45);
 
     var planeAge45_55 = new THREE.PlaneGeometry(155/350, 91/350);
@@ -115,8 +115,8 @@ function Registration3Scene(setScene) {
     Age45_55 = new THREE.Mesh(planeAge45_55, materialAge45_55);
     Age45_55.position.set(0.45, -2, 0);
     Age45_55.pointer = "pointer"
-    Age45_55.on("click", () => setAge("45_55"));
-    Age45_55.on("touchstart", () => setAge("45_55"));
+    Age45_55.on("click", () => setAge("45"));
+    Age45_55.on("touchstart", () => setAge("45"));
     scene.add(Age45_55);
 
     var planeAge55_65 = new THREE.PlaneGeometry(155/350, 91/350);
@@ -125,8 +125,8 @@ function Registration3Scene(setScene) {
     Age55_65 = new THREE.Mesh(planeAge55_65, materialAge55_65);
     Age55_65.position.set(0.22,-2.27, 0);
     Age55_65.pointer = "pointer"
-    Age55_65.on("click", () => setAge("55_65"));
-    Age55_65.on("touchstart", () => setAge("55_65"));
+    Age55_65.on("click", () => setAge("55"));
+    Age55_65.on("touchstart", () => setAge("55"));
     scene.add(Age55_65);
 
     var planeAge65Plus = new THREE.PlaneGeometry(155/350, 91/350);
@@ -135,8 +135,8 @@ function Registration3Scene(setScene) {
     Age65Plus = new THREE.Mesh(planeAge65Plus, materialAge65Plus);
     Age65Plus.position.set(-0.2,-2.27, 0);
     Age65Plus.pointer = "pointer"
-    Age65Plus.on("click", () => setAge("65Plus"));
-    Age65Plus.on("touchstart", () => setAge("65Plus"));
+    Age65Plus.on("click", () => setAge("65"));
+    Age65Plus.on("touchstart", () => setAge("65"));
     scene.add(Age65Plus);
 
  
