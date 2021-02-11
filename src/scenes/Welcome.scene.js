@@ -74,7 +74,7 @@ function WelcomeScene(setScene) {
 
   function loadBinTextures() {
     binTextures = [];
-    for (var index = 1; index <= 11; ++index) {
+    for (var index = 1; index <= 9; ++index) {
       const filename = 'fly' + pad(index, 2) + '.png';
       binTextures[index] = textureLoader.load(
         '/static/imgs/welcome_page/flyAnima/' + filename
@@ -84,7 +84,7 @@ function WelcomeScene(setScene) {
 
   function createBin() {
     if (bin) scene.remove(bin);
-    var planeBin = new THREE.PlaneGeometry(447 / 1400, 822 / 1400);
+    var planeBin = new THREE.PlaneGeometry(300 / 300, 300 / 300);
     var materialBin = new THREE.MeshBasicMaterial({
       map: binTextures[actualBinTexture],
       transparent: true,
@@ -159,7 +159,7 @@ function WelcomeScene(setScene) {
         counter = 10;
         actualBinTexture++;
 
-        if (actualBinTexture > 11) {
+        if (actualBinTexture > 9) {
           actualBinTexture = 1;
         }
         createBin();
