@@ -101,7 +101,7 @@ function WelcomeScene(setScene) {
 
   function initObjects() {
     flyAudio = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/flySound.mp3', function (buffer) {
+    audioLoader.load('static/audios/flySound.ogg', function (buffer) {
       flyAudio.setBuffer(buffer);
       flyAudio.setRefDistance(1);
       flyAudio.setLoop(true);
@@ -166,7 +166,7 @@ function WelcomeScene(setScene) {
   let counter = 10;
   function update() {
     if (added) {
-      if (flyAudio && !flyAudio.isPlaying) flyAudio.play();
+      if (flyAudio) flyAudio.play();
       counter--;
       if (counter == 0) {
         counter = 10;
