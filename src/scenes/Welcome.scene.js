@@ -5,13 +5,11 @@ import TestScene from './Test.scene';
 import RegistrationScene from './registration.scene';
 
 // Loaders
-const audioLoader = new THREE.AudioLoader();
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
 // Main scene objs
 var camera;
 var scene;
-var listener = new THREE.AudioListener();
 //Scene objs
 var background;
 var windowOfHouse;
@@ -20,7 +18,6 @@ var DareToEnter;
 var binTextures;
 var bin;
 var actualBinTexture = 1;
-var flyAudio;
 
 function WelcomeScene(setScene) {
   camera = new THREE.PerspectiveCamera(
@@ -30,7 +27,6 @@ function WelcomeScene(setScene) {
     10000
   );
   camera.position.set(0, 0, 7);
-  camera.add(listener);
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xffffff);
 
@@ -43,7 +39,6 @@ function WelcomeScene(setScene) {
   function overTheWindow(envet) {
     // hover
     if (!added) {
-      if (flyAudio) flyAudio.play();
       added = true;
       setTimeout(() => {
         scene.add(DareToEnter);
@@ -65,7 +60,6 @@ function WelcomeScene(setScene) {
   }
 
   function go() {
-    flyAudio.stop();
     var ns = RegistrationScene(setScene);
     setScene(ns);
   }
@@ -101,14 +95,6 @@ function WelcomeScene(setScene) {
   }
 
   function initObjects() {
-    flyAudio = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/flySound.ogg', function (buffer) {
-      flyAudio.setBuffer(buffer);
-      flyAudio.setRefDistance(1);
-      flyAudio.setLoop(true);
-      if (added) flyAudio.play();
-      background.add(flyAudio);
-    });
     var plane = new THREE.PlaneGeometry(1080 / 400, 1920 / 400);
     var texture = new THREE.TextureLoader().load(
       'static/imgs/welcome_page/background.png'
@@ -177,6 +163,7 @@ function WelcomeScene(setScene) {
           actualBinTexture = 1;
         }
         createBin();
+
       }
     }
   }
