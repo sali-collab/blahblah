@@ -5,6 +5,7 @@ import { initDatabase } from './firebase';
 
 import WelcomeScene from './scenes/Welcome.scene';
 
+
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
   var scene;
