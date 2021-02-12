@@ -38,22 +38,25 @@ if (WEBGL.isWebGLAvailable()) {
     if (update) update();
     if (scene && camera) renderer.render(scene, camera);
   }
-
+  var going = false;
   function setScene(sceneObj) {
-    if(interaction) interaction.destroy();
-    setTimeout(() => {
-      if (destroy != null) destroy();
-      if (scene) {
-        while (scene.children.length > 0) {
-          scene.remove(scene.children[0]);
+    if (!going) {
+      going = true;
+      setTimeout(() => {
+        if (destroy != null) destroy();
+        if (scene) {
+          while (scene.children.length > 0) {
+            scene.remove(scene.children[0]);
+          }
         }
-      }
-      scene = sceneObj.scene;
-      camera = sceneObj.camera;
-      update = sceneObj.update;
-      destroy = sceneObj.destroy;
-      interaction = new Interaction(renderer, scene, camera);
-    }, 250);
+        scene = sceneObj.scene;
+        camera = sceneObj.camera;
+        update = sceneObj.update;
+        destroy = sceneObj.destroy;
+        interaction = new Interaction(renderer, scene, camera);
+        going = false;
+      }, 250);
+    }
   }
 } else {
   var warning = WEBGL.getWebGLErrorMessage();
