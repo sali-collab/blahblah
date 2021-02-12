@@ -18,6 +18,7 @@ var DareToEnter;
 var binTextures;
 var bin;
 var actualBinTexture = 1;
+var Audiofly;
 
 function WelcomeScene(setScene) {
   camera = new THREE.PerspectiveCamera(
