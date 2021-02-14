@@ -22,6 +22,7 @@ var Limon;
 var Puntarenas;
 var Alajuela;
 var Heredia;
+var Other;
 
 
 function RegistrationScene(setScene) {
@@ -74,24 +75,24 @@ function RegistrationScene(setScene) {
     avatar.position.set(0, 0.2, 0);
     scene.add(avatar);
 
-    var planeFrom = new THREE.PlaneGeometry(842 / 1300, 417 / 1300);
+    var planeFrom = new THREE.PlaneGeometry(327 / 300, 70 / 300);
     var textureFrom = new THREE.TextureLoader().load('static/imgs/registration_page/From.png');
     var materialFrom = new THREE.MeshBasicMaterial({ map: textureFrom , transparent:true});
     From = new THREE.Mesh(planeFrom, materialFrom);
     From.position.set(0, -1.65, 0);
     scene.add(From);
     
-    var planeSanJose = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planeSanJose = new THREE.PlaneGeometry(763/950, 263/950);
     var textureSanJose = new THREE.TextureLoader().load('static/imgs/registration_page/SanJose.png');
     var materialSanJose = new THREE.MeshBasicMaterial({ map: textureSanJose , transparent:true});
     SanJose = new THREE.Mesh(planeSanJose, materialSanJose);
-    SanJose.position.set(-0.65,-2, 0.01);
+    SanJose.position.set(-0.95,-2, 0.01);
     SanJose.pointer = 'pointer';
     SanJose.on('click',()=>setFrom("SAN JOSE"));
     SanJose.on('touchstart',()=>setFrom("SAN JOSE"));
     scene.add(SanJose);
 
-    var planeLimon = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planeLimon = new THREE.PlaneGeometry(763/950, 263/950);
     var textureLimon = new THREE.TextureLoader().load('static/imgs/registration_page/Limon.png');
     var materialLimon = new THREE.MeshBasicMaterial({ map: textureLimon , transparent:true});
     Limon = new THREE.Mesh(planeLimon, materialLimon);
@@ -101,55 +102,65 @@ function RegistrationScene(setScene) {
     Limon.on('touchstart',()=>setFrom("LIMON"));
     scene.add(Limon);
 
-    var planeCartago = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planeCartago = new THREE.PlaneGeometry(763/950, 263/950);
     var textureCartago = new THREE.TextureLoader().load('static/imgs/registration_page/Cartago.png');
     var materialCartago = new THREE.MeshBasicMaterial({ map: textureCartago , transparent:true});
     Cartago = new THREE.Mesh(planeCartago, materialCartago);
-    Cartago.position.set(0.65, -2, 0.01);
+    Cartago.position.set(0.95, -2, 0.01);
     Cartago.pointer = 'pointer';
     Cartago.on('click',()=>setFrom("CARTAGO"));
     Cartago.on('touchstart',()=>setFrom("CARTAGO"));
     scene.add(Cartago);
 
-    var planeAlajuela = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planeAlajuela = new THREE.PlaneGeometry(763/950, 263/950);
     var textureAlajuela = new THREE.TextureLoader().load('static/imgs/registration_page/Alajuela.png');
     var materialAlajuela = new THREE.MeshBasicMaterial({ map: textureAlajuela , transparent:true});
     Alajuela = new THREE.Mesh(planeAlajuela, materialAlajuela);
-    Alajuela.position.set(0.65,-2.23, 0.01);
+    Alajuela.position.set(0.95,-2.33, 0.01);
     Alajuela.pointer = 'pointer';
     Alajuela.on('click',()=>setFrom("ALAJUELA"));
     Alajuela.on('touchstart',()=>setFrom("ALAJUELA"));
     scene.add(Alajuela);
 
-    var planeHeredia = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planeHeredia = new THREE.PlaneGeometry(763/950, 263/950);
     var textureHeredia = new THREE.TextureLoader().load('static/imgs/registration_page/Heredia.png');
     var materialHeredia = new THREE.MeshBasicMaterial({ map: textureHeredia , transparent:true});
     Heredia = new THREE.Mesh(planeHeredia, materialHeredia);
-    Heredia.position.set(0,-2.23, 0.01);
+    Heredia.position.set(0,-2.33, 0.01);
     Heredia.pointer = 'pointer';
     Heredia.on('click',()=>setFrom("HEREDIA"));
     Heredia.on('touchstart',()=>setFrom("HEREDIA"));
     scene.add(Heredia);
 
-    var planePuntarenas = new THREE.PlaneGeometry(763/1200, 263/1200);
+    var planePuntarenas = new THREE.PlaneGeometry(763/950, 263/950);
     var texturePuntarenas = new THREE.TextureLoader().load('static/imgs/registration_page/Puntarenas.png');
     var materialPuntarenas = new THREE.MeshBasicMaterial({ map: texturePuntarenas , transparent:true});
     Puntarenas = new THREE.Mesh(planePuntarenas, materialPuntarenas);
-    Puntarenas.position.set(-0.65,-2.23, 0.01);
+    Puntarenas.position.set(-0.95,-2.33, 0.01);
     Puntarenas.pointer = 'pointer';
     Puntarenas.on('click',()=>setFrom("PUNTARENAS"));
     Puntarenas.on('touchstart',()=>setFrom("PUNTARENAS"));
     scene.add(Puntarenas);
 
-    var planeGuanacaste = new THREE.PlaneGeometry(763/1200, 264/1200);
+    var planeGuanacaste = new THREE.PlaneGeometry(763/950, 264/950);
     var textureGuanacaste = new THREE.TextureLoader().load('static/imgs/registration_page/Guanacaste.png');
     var materialGuanacaste = new THREE.MeshBasicMaterial({ map: textureGuanacaste , transparent:true});
     Guanacaste = new THREE.Mesh(planeGuanacaste, materialGuanacaste);
-    Guanacaste.position.set(0,-2.46, 0.01);
+    Guanacaste.position.set(-0.3,-2.66, 0.01);
     Guanacaste.pointer = 'pointer';
     Guanacaste.on('click',()=>setFrom("GUANACASTE"));
     Guanacaste.on('touchstart',()=>setFrom("GUANACASTE"));
     scene.add(Guanacaste); 
+
+    var planeOther = new THREE.PlaneGeometry(170/300, 93/300);
+    var textureOther = new THREE.TextureLoader().load('static/imgs/registration_page/Other.png');
+    var materialOther = new THREE.MeshBasicMaterial({ map: textureOther , transparent:true});
+    Other = new THREE.Mesh(planeOther, materialOther);
+    Other.position.set(0.5,-2.66, 0.01);
+   // Guanacaste.pointer = 'pointer';
+   // Guanacaste.on('click',()=>setFrom("GUANACASTE"));
+    //Guanacaste.on('touchstart',()=>setFrom("GUANACASTE"));
+    scene.add(Other); 
 
 
   }
