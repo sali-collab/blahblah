@@ -16,7 +16,7 @@ function Education(setScene) {
   var source;
 
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
-  var cube,cone,cylinder,torous,orousKnot;
+  var cube, cone, cylinder, torous, torousKnot;
 
   var camera = new THREE.PerspectiveCamera(
     45,
@@ -35,7 +35,7 @@ function Education(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
-  
+
   window.addEventListener('touchstart', () => {
     source = listener.context.createBufferSource();
     source.connect(listener.context.destination);
@@ -180,8 +180,7 @@ function Education(setScene) {
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
       torousSound.play();
-
-      torus.add(torousSound);
+      torous.add(torousSound);
     });
 
     // TorousKnot sound
@@ -191,8 +190,7 @@ function Education(setScene) {
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
       torousKnotSound.play();
-
-      torusKnot.add(torousKnotSound);
+      torousKnot.add(torousKnotSound);
     });
   }
 
@@ -277,22 +275,22 @@ function Education(setScene) {
     const torousMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(1, 1, 0),
     });
-    torus = new THREE.Mesh(torousGeometry, torousMaterial);
-    torus.castShadow = true;
-    torus.receiveShadow = true;
-    torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
-    scene.add(torus);
+    torous = new THREE.Mesh(torousGeometry, torousMaterial);
+    torous.castShadow = true;
+    torous.receiveShadow = true;
+    torous.position.copy(getPositionFromAngle(Math.PI * 1.2));
+    scene.add(torous);
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
     const torusKnotMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0, 1, 1),
     });
-    torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
-    torusKnot.castShadow = true;
-    torusKnot.receiveShadow = true;
-    torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
-    scene.add(torusKnot);
+    torousKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+    torousKnot.castShadow = true;
+    torousKnot.receiveShadow = true;
+    torousKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
+    scene.add(torousKnot);
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
