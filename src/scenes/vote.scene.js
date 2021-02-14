@@ -18,6 +18,7 @@ var voteNo;
 var voteEdu;
 var voteHealth;
 var voteSaf;
+var Message;
 
 function voteScene(setScene, color) {
   camera = new THREE.PerspectiveCamera(
@@ -58,16 +59,18 @@ function voteScene(setScene, color) {
 
   function initObjects() {
     var planeBackground = new THREE.PlaneGeometry(1080 / 270, 1920 / 270);
-    var textureBackground = textureLoader.load(
-      'static/imgs/vote_page/Background.png'
-    );
-    var materialBackground = new THREE.MeshBasicMaterial({
-      map: textureBackground,
-      transparent: true,
-    });
+    var textureBackground = textureLoader.load('static/imgs/vote_page/Background.png');
+    var materialBackground = new THREE.MeshBasicMaterial({map: textureBackground, transparent: true,});
     Background = new THREE.Mesh(planeBackground, materialBackground);
     Background.position.set(0, -0.2, 0);
     scene.add(Background);
+
+    var planeMessage = new THREE.PlaneGeometry(578 / 270, 203 / 270);
+    var textureMessage = textureLoader.load('static/imgs/vote_page/Message.png');
+    var materialMessage = new THREE.MeshBasicMaterial({map: textureMessage, transparent: true,});
+    Message = new THREE.Mesh(planeMessage, materialMessage);
+    Message.position.set(0, -2.2, 0);
+    scene.add(Message);
 
     var planevoteEdu = new THREE.PlaneGeometry(430 / 1350, 381 / 1350);
     var texturevoteEdu = textureLoader.load(
