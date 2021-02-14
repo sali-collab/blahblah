@@ -89,7 +89,7 @@ function NameScene(setScene) {
       createText();
     });
 
-    var planeSubmit = new THREE.PlaneGeometry(202/400, 100/400);
+    var planeSubmit = new THREE.PlaneGeometry(202/300, 100/300);
     var textureSubmit = new THREE.TextureLoader().load('static/imgs/name_page/Submit.png');
     var materialSubmit = new THREE.MeshBasicMaterial({ map: textureSubmit , transparent:true});
     Submit = new THREE.Mesh(planeSubmit, materialSubmit);
