@@ -104,7 +104,7 @@ function WelcomeScene(setScene) {
     var materialComeHere  = new THREE.MeshBasicMaterial({ map: textureComeHere  , transparent:true});
     ComeHere = new THREE.Mesh(planeComeHere , materialComeHere);
     ComeHere .position.set(0.02, 0.25, 0);
-    //scene.add(ComeHere);
+    scene.add(ComeHere);
 
 
     var plane = new THREE.PlaneGeometry(1080 / 400, 1920 / 400);
@@ -129,10 +129,12 @@ function WelcomeScene(setScene) {
     });
     windowOfHouse = new THREE.Mesh(planeWindow, materialwindowOfHouse);
     windowOfHouse.position.set(0.1, 0.48, 0.1);
-    scene.add(windowOfHouse);
     windowOfHouse.on('mouseover', overTheWindow);
     windowOfHouse.on('touchstart', overTheWindow);
+    windowOfHouse.on('click', overTheWindow);
 
+    scene.add(windowOfHouse);
+    
     var planeDareToEnter = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
     var textureDareToEnter = new THREE.TextureLoader().load(
       'static/imgs/welcome_page/DareToEnter.png'
