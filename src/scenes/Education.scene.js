@@ -13,9 +13,7 @@ var Vote;
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
-  var source,
-    soundFixing = false;
-
+ 
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
 
   var camera = new THREE.PerspectiveCamera(
@@ -35,15 +33,6 @@ function Education(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
-
-  window.addEventListener('touchstart', () => {
-    if (!soundFixing) {
-      soundFixing = true;
-      source = listener.context.createBufferSource();
-      source.connect(listener.context.destination);
-      source.start();
-    }
-  });
 
   var joystick = new VirtualJoystick({
     mouseSupport: true,
