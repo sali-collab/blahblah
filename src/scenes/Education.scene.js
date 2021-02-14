@@ -48,6 +48,7 @@ function Education(setScene) {
   });
 
   initLights();
+  initObjects();
   loadAudios();
 
   function handleOrientation(event) {}
@@ -128,13 +129,13 @@ function Education(setScene) {
     setScene(bs);
   }
 
-  function audioLoaded() {
+  /*function audioLoaded() {
     ++audiosLoaded;
     console.log(audiosLoaded);
     if (audiosLoaded == 5) {
       initObjects();
     }
-  }
+  }*/
 
   function loadAudios() {
     const refDistance = 0.3;
@@ -145,7 +146,7 @@ function Education(setScene) {
       cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
       cubeSound.play();
-      audioLoaded();
+      cube.add(cubeSound);
     });
     // cone sound
     coneSound = new THREE.PositionalAudio(listener);
@@ -154,7 +155,8 @@ function Education(setScene) {
       coneSound.setRefDistance(refDistance);
       coneSound.setLoop(true);
       coneSound.play();
-      audioLoaded();
+
+      cone.add(coneSound);
     });
 
     // cylinder sound
@@ -164,7 +166,7 @@ function Education(setScene) {
       cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
       cylinderSound.play();
-      audioLoaded();
+      cylinder.add(cylinderSound);
     });
 
     // Torous sound
@@ -174,7 +176,8 @@ function Education(setScene) {
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
       torousSound.play();
-      audioLoaded();
+
+      torus.add(torousSound);
     });
 
     // TorousKnot sound
@@ -184,7 +187,8 @@ function Education(setScene) {
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
       torousKnotSound.play();
-      audioLoaded();
+
+      torusKnot.add(torousKnotSound);
     });
   }
 
@@ -240,7 +244,6 @@ function Education(setScene) {
     cube.castShadow = true;
     cube.receiveShadow = true;
     cube.position.copy(getPositionFromAngle(0));
-    cube.add(cubeSound);
     scene.add(cube);
 
     // Cone code
@@ -253,7 +256,6 @@ function Education(setScene) {
     cone.receiveShadow = true;
     cone.position.copy(getPositionFromAngle(Math.PI * 0.4));
     scene.add(cone);
-    cone.add(coneSound);
 
     // Cynder code
     const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
@@ -265,7 +267,6 @@ function Education(setScene) {
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
-    cylinder.add(cylinderSound);
 
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
@@ -277,7 +278,6 @@ function Education(setScene) {
     torus.receiveShadow = true;
     torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
     scene.add(torus);
-    torus.add(torousSound);
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
@@ -289,7 +289,6 @@ function Education(setScene) {
     torusKnot.receiveShadow = true;
     torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
     scene.add(torusKnot);
-    torusKnot.add(torousKnotSound);
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
