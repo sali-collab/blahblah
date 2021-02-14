@@ -13,8 +13,10 @@ var Vote;
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
- 
+  var source;
+
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
+  var cube,cone,cylinder,torous,orousKnot;
 
   var camera = new THREE.PerspectiveCamera(
     45,
@@ -33,6 +35,12 @@ function Education(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+  
+  window.addEventListener('touchstart', () => {
+    source = listener.context.createBufferSource();
+    source.connect(listener.context.destination);
+    source.start();
+  });
 
   var joystick = new VirtualJoystick({
     mouseSupport: true,
@@ -137,7 +145,7 @@ function Education(setScene) {
     const refDistance = 0.5;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio1.mp3', function (buffer) {
+    audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
       cubeSound.setBuffer(buffer);
       cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
@@ -146,7 +154,7 @@ function Education(setScene) {
     });
     // cone sound
     coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio2.mp3', function (buffer) {
+    audioLoader.load('static/audios/Education/audio2.ogg', function (buffer) {
       coneSound.setBuffer(buffer);
       coneSound.setRefDistance(refDistance);
       coneSound.setLoop(true);
@@ -157,7 +165,7 @@ function Education(setScene) {
 
     // cylinder sound
     cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio3.mp3', function (buffer) {
+    audioLoader.load('static/audios/Education/audio3.ogg', function (buffer) {
       cylinderSound.setBuffer(buffer);
       cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
@@ -167,7 +175,7 @@ function Education(setScene) {
 
     // Torous sound
     torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio4.mp3', function (buffer) {
+    audioLoader.load('static/audios/Education/audio4.ogg', function (buffer) {
       torousSound.setBuffer(buffer);
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
@@ -178,7 +186,7 @@ function Education(setScene) {
 
     // TorousKnot sound
     torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio5.mp3', function (buffer) {
+    audioLoader.load('static/audios/Education/audio5.ogg', function (buffer) {
       torousKnotSound.setBuffer(buffer);
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
@@ -236,7 +244,7 @@ function Education(setScene) {
     var cubeMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(1, 0, 0),
     });
-    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
     cube.receiveShadow = true;
     cube.position.copy(getPositionFromAngle(0));
@@ -247,7 +255,7 @@ function Education(setScene) {
     var coneMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 2, 0),
     });
-    var cone = new THREE.Mesh(coneGeometry, coneMaterial);
+    cone = new THREE.Mesh(coneGeometry, coneMaterial);
     cone.castShadow = true;
     cone.receiveShadow = true;
     cone.position.copy(getPositionFromAngle(Math.PI * 0.4));
@@ -258,7 +266,7 @@ function Education(setScene) {
     const cylinderMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 2),
     });
-    const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
@@ -269,7 +277,7 @@ function Education(setScene) {
     const torousMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(1, 1, 0),
     });
-    const torus = new THREE.Mesh(torousGeometry, torousMaterial);
+    torus = new THREE.Mesh(torousGeometry, torousMaterial);
     torus.castShadow = true;
     torus.receiveShadow = true;
     torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
@@ -280,7 +288,7 @@ function Education(setScene) {
     const torusKnotMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0, 1, 1),
     });
-    const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+    torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
     torusKnot.castShadow = true;
     torusKnot.receiveShadow = true;
     torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
