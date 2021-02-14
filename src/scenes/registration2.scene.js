@@ -57,7 +57,7 @@ function Registration2Scene(setScene) {
 
   function initObjects() {
 
-    var planeColour = new THREE.PlaneGeometry(237 / 350, 71 / 350);
+    var planeColour = new THREE.PlaneGeometry(588 / 300, 73 / 300);
     var textureColour = new THREE.TextureLoader().load('static/imgs/registration2_page/Colour.png');
     var materialColour = new THREE.MeshBasicMaterial({ map: textureColour, transparent: true });
     Colour = new THREE.Mesh(planeColour, materialColour);
