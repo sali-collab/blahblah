@@ -65,7 +65,7 @@ function voteScene(setScene, color) {
     Background.position.set(0, -0.2, 0);
     scene.add(Background);
 
-    var planeMessage = new THREE.PlaneGeometry(578 / 270, 203 / 270);
+    var planeMessage = new THREE.PlaneGeometry(578 / 250, 203 / 250);
     var textureMessage = textureLoader.load('static/imgs/vote_page/Message.png');
     var materialMessage = new THREE.MeshBasicMaterial({map: textureMessage, transparent: true,});
     Message = new THREE.Mesh(planeMessage, materialMessage);
