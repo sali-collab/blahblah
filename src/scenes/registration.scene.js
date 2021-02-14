@@ -146,13 +146,13 @@ function RegistrationScene(setScene) {
     var textureGuanacaste = new THREE.TextureLoader().load('static/imgs/registration_page/Guanacaste.png');
     var materialGuanacaste = new THREE.MeshBasicMaterial({ map: textureGuanacaste , transparent:true});
     Guanacaste = new THREE.Mesh(planeGuanacaste, materialGuanacaste);
-    Guanacaste.position.set(-0.3,-2.66, 0.01);
+    Guanacaste.position.set(-0.3 ,-2.66, 0.01);
     Guanacaste.pointer = 'pointer';
     Guanacaste.on('click',()=>setFrom("GUANACASTE"));
     Guanacaste.on('touchstart',()=>setFrom("GUANACASTE"));
     scene.add(Guanacaste); 
 
-    var planeOther = new THREE.PlaneGeometry(170/300, 93/300);
+    var planeOther = new THREE.PlaneGeometry(208/295, 81/300);
     var textureOther = new THREE.TextureLoader().load('static/imgs/registration_page/Other.png');
     var materialOther = new THREE.MeshBasicMaterial({ map: textureOther , transparent:true});
     Other = new THREE.Mesh(planeOther, materialOther);
