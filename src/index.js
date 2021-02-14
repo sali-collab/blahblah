@@ -3,7 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import registration3Scene from './scenes/registration3.scene';
+import voteScene from './scenes/vote.scene';
 
 
 if (WEBGL.isWebGLAvailable()) {
@@ -26,7 +26,7 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    var firstScene = registration3Scene(setScene);
+    var firstScene = voteScene(setScene);
     setScene(firstScene);
   }
 
