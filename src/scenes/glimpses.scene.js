@@ -105,14 +105,14 @@ function goSafety() {
    var textureHealthText = new THREE.TextureLoader().load('static/imgs/glimpses_page/HealthText.png');
    var materialHealthText  = new THREE.MeshBasicMaterial({ map: textureHealthText  , transparent:true});
    HealthText  = new THREE.Mesh(planeHealthText , materialHealthText);
-   HealthText.position.set(0,-1.25, 0);
+   HealthText.position.set(0,-0.45, 0);
    scene.add(HealthText); 
 
-  var planeLine = new THREE.PlaneGeometry(612/200, 53/200);
+  var planeLine = new THREE.PlaneGeometry(612/300, 53/300);
   var textureLine= new THREE.TextureLoader().load('static/imgs/glimpses_page/Line.png');
   var materialLine = new THREE.MeshBasicMaterial({ map: textureLine , transparent:true});
   Line= new THREE.Mesh(planeLine, materialLine);
-  Line.position.set(-0.91,0.1, 0);
+  Line.position.set(-0.6,0.1, 0);
   scene.add(Line); 
 
   var planeShoe = new THREE.PlaneGeometry(488/300, 329/300);
@@ -130,7 +130,7 @@ function goSafety() {
   var textureBird = new THREE.TextureLoader().load('static/imgs/glimpses_page/Bird.png');
   var materialBird = new THREE.MeshBasicMaterial({ map: textureBird , transparent:true});
   Bird = new THREE.Mesh(planeBird, materialBird);
-  Bird.position.set(0,-1, 0.01);
+  Bird.position.set(0,-0.5, 0.01);
   scene.add(Bird); 
 
   Bird.cursor = 'pointer';
@@ -141,7 +141,7 @@ function goSafety() {
   var textureBaby = new THREE.TextureLoader().load('static/imgs/glimpses_page/Baby.png');
   var materialBaby = new THREE.MeshBasicMaterial({ map: textureBaby , transparent:true});
   Baby = new THREE.Mesh(planeBaby, materialBaby);
-  Baby.position.set(-1.5,-1.45, 0.01);
+  Baby.position.set(-1.5,-1, 0.01);
   scene.add(Baby); 
 
   Baby.cursor = 'pointer';
