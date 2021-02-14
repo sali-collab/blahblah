@@ -138,10 +138,10 @@ function Education(setScene) {
   }*/
 
   function loadAudios() {
-    const refDistance = 0.3;
+    const refDistance = 0.5;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
+    audioLoader.load('static/audios/Education/audio1.mp3', function (buffer) {
       cubeSound.setBuffer(buffer);
       cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
@@ -150,7 +150,7 @@ function Education(setScene) {
     });
     // cone sound
     coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio2.ogg', function (buffer) {
+    audioLoader.load('static/audios/Education/audio2.mp3', function (buffer) {
       coneSound.setBuffer(buffer);
       coneSound.setRefDistance(refDistance);
       coneSound.setLoop(true);
@@ -161,7 +161,7 @@ function Education(setScene) {
 
     // cylinder sound
     cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio3.ogg', function (buffer) {
+    audioLoader.load('static/audios/Education/audio3.mp3', function (buffer) {
       cylinderSound.setBuffer(buffer);
       cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
@@ -171,7 +171,7 @@ function Education(setScene) {
 
     // Torous sound
     torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio4.ogg', function (buffer) {
+    audioLoader.load('static/audios/Education/audio4.mp3', function (buffer) {
       torousSound.setBuffer(buffer);
       torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
@@ -182,7 +182,7 @@ function Education(setScene) {
 
     // TorousKnot sound
     torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio5.ogg', function (buffer) {
+    audioLoader.load('static/audios/Education/audio5.mp3', function (buffer) {
       torousKnotSound.setBuffer(buffer);
       torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
