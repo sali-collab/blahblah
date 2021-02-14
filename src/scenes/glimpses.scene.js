@@ -98,14 +98,14 @@ function goSafety() {
    var textureEducationText = new THREE.TextureLoader().load('static/imgs/glimpses_page/EducationText.png');
    var materialEducationText  = new THREE.MeshBasicMaterial({ map: textureEducationText  , transparent:true});
    EducationText  = new THREE.Mesh(planeEducationText , materialEducationText );
-   EducationText.position.set(-1.5,-1.8, 0);
+   EducationText.position.set(-1.5,-1.35, 0);
    scene.add(EducationText); 
 
    var planeHealthText = new THREE.PlaneGeometry(87/300, 23/300);
    var textureHealthText = new THREE.TextureLoader().load('static/imgs/glimpses_page/HealthText.png');
    var materialHealthText  = new THREE.MeshBasicMaterial({ map: textureHealthText  , transparent:true});
    HealthText  = new THREE.Mesh(planeHealthText , materialHealthText);
-   HealthText.position.set(0,-0.45, 0);
+   HealthText.position.set(0,-0.73, 0);
    scene.add(HealthText); 
 
   var planeLine = new THREE.PlaneGeometry(612/300, 53/300);
