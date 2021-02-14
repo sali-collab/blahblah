@@ -144,15 +144,14 @@ function Education(setScene) {
   function loadAudios() {
     const refDistance = 0.5;
     // cube sound
+
+    const audioElement = document.getElementById('sound-education-01');
+    audioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
-      cubeSound.setBuffer(buffer);
-      cubeSound.setRefDistance(refDistance);
-      cubeSound.setLoop(true);
-      cubeSound.play();
-      cube.add(cubeSound);
-    });
-    // cone sound
+    cubeSound.setMediaElementSource(audioElement);
+    cubeSound.setRefDistance(1);
+    cube.add(cubeSound);
+    /*// cone sound
     coneSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/Education/audio2.ogg', function (buffer) {
       coneSound.setBuffer(buffer);
@@ -191,7 +190,7 @@ function Education(setScene) {
       torousKnotSound.setLoop(true);
       torousKnotSound.play();
       torousKnot.add(torousKnotSound);
-    });
+    });*/
   }
 
   function initObjects() {
