@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+import VirtualJoystick from '../virtualjoystick';
+
 import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
@@ -32,6 +34,16 @@ function Education(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+
+  var joystick = new VirtualJoystick({
+    mouseSupport: true,
+    stationaryBase: true,
+    baseX: window.innerWidth / 2,
+    baseY: window.innerHeight - 100,
+    limitStickTravel: true,
+    stickRadius: 50,
+  });
+
   initLights();
   loadAudios();
 
@@ -288,6 +300,10 @@ function Education(setScene) {
 
   function update() {
     if (ball) {
+      if(joystick._pressed){
+        direction.x = joystick.deltaX() / 50;
+        direction.z = joystick.deltaY() / 50;
+      }
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
       ball.position.clampLength(0, floorRadius - 1);
