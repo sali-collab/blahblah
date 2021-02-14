@@ -19,6 +19,7 @@ var binTextures;
 var bin;
 var actualBinTexture = 1;
 var Audiofly;
+var ComeHere; 
 
 function WelcomeScene(setScene) {
   camera = new THREE.PerspectiveCamera(
@@ -96,6 +97,16 @@ function WelcomeScene(setScene) {
   }
 
   function initObjects() {
+
+
+    var planeComeHere = new THREE.PlaneGeometry(85 / 300, 41 / 300);
+    var textureComeHere  = new THREE.TextureLoader().load('static/imgs/welcome_page/ComeHere.png');
+    var materialComeHere  = new THREE.MeshBasicMaterial({ map: textureComeHere  , transparent:true});
+    ComeHere = new THREE.Mesh(planeComeHere , materialComeHere);
+    ComeHere .position.set(0.02, 0.25, 0);
+    scene.add(ComeHere);
+
+
     var plane = new THREE.PlaneGeometry(1080 / 400, 1920 / 400);
     var texture = new THREE.TextureLoader().load(
       'static/imgs/welcome_page/background.png'
