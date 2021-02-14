@@ -54,7 +54,7 @@ function WelcomeScene(setScene) {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
-  function initLights() {    K    
+  function initLights() {     
     var spotLight = new THREE.SpotLight();
     scene.add(spotLight);
     spotLight.position.set(10, 10, 10);

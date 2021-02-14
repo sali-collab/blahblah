@@ -44,20 +44,29 @@ function titleScene(setScene, color) {
   
   }
 
+  function goWelcome() {
+    var ws = WelcomeScene(setScene);
+    setScene(ws);
+  }
+
   function initObjects() {
     var planeTitleText = new THREE.PlaneGeometry(555 / 300, 158 / 300);
     var textureTitleText = new THREE.TextureLoader().load('static/imgs/title_page/TitleText.png');
     var materialTitleText = new THREE.MeshBasicMaterial({map: textureTitleText,transparent: true});
     TitleText = new THREE.Mesh(planeTitleText, materialTitleText);
-    TitleText.position.set(0, 0, 0);
-    scene.add(itleText);
+    TitleText.position.set(0, 1, 0);
+    scene.add(TitleText);
 
- 
+    var planeArrow = new THREE.PlaneGeometry(203 / 300, 139 / 300);
+    var textureArrow = new THREE.TextureLoader().load('static/imgs/title_page/Arrow.png');
+    var materialArrow = new THREE.MeshBasicMaterial({map: textureArrow,transparent: true});
+    Arrow= new THREE.Mesh(planeArrow, materialArrow);
+    Arrow.position.set(1, -1, 0);
+    scene.add(Arrow);
 
-
-   /* DareToEnter.cursor = 'pointer';
-    DareToEnter.on('click', go);
-    DareToEnter.on('touchstart', go);*/
+    Arrow.cursor = 'pointer';
+    Arrow.on('click', goWelcome);
+    Arrow.on('touchstart', goWelcome);
   
   }   
 
