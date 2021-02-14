@@ -3,7 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import WelcomeScene from './scenes/Welcome.scene';
+import titleScene from './scenes/title.scene';
 
 
 if (WEBGL.isWebGLAvailable()) {
@@ -26,7 +26,7 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    var firstScene = WelcomeScene(setScene);
+    var firstScene = titleScene(setScene);
     setScene(firstScene);
   }
 
