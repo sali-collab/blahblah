@@ -13,6 +13,9 @@ var Vote;
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
+  var source = listener.context.createBufferSource();
+  source.connect(listener.context.destination);
+  source.start();
 
   var audiosLoaded = 0;
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
@@ -134,7 +137,7 @@ function Education(setScene) {
   }
 
   function loadAudios() {
-    const refDistance = 0.25;
+    const refDistance = 0.3;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
