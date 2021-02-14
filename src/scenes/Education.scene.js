@@ -6,7 +6,7 @@ import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
 const audioLoader = new THREE.AudioLoader();
-const floorRadius = 15;
+const floorRadius = 40;
 var Back;
 var Vote;
 
@@ -39,7 +39,7 @@ function Education(setScene) {
     mouseSupport: true,
     stationaryBase: true,
     baseX: window.innerWidth / 2,
-    baseY: window.innerHeight - 100,
+    baseY: window.innerHeight - 150,
     limitStickTravel: true,
     stickRadius: 50,
   });
@@ -83,6 +83,7 @@ function Education(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
+    joystick.destroy();
   }
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -94,6 +95,8 @@ function Education(setScene) {
     spotLight.position.set(20, 20, 20);
     spotLight.lookAt(0, 0, 0);
     spotLight.castShadow = true;
+    const light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
   }
 
   function getPositionFromAngle(angle, yPos = 1) {
@@ -131,7 +134,7 @@ function Education(setScene) {
   }
 
   function loadAudios() {
-    const refDistance = 1;
+    const refDistance = 0.25;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
@@ -240,7 +243,7 @@ function Education(setScene) {
     // Cone code
     var coneGeometry = new THREE.ConeGeometry(1, 2, 32);
     var coneMaterial = new THREE.MeshLambertMaterial({
-      color: new THREE.Color(0, 1, 0),
+      color: new THREE.Color(0, 2, 0),
     });
     var cone = new THREE.Mesh(coneGeometry, coneMaterial);
     cone.castShadow = true;
@@ -252,7 +255,7 @@ function Education(setScene) {
     // Cynder code
     const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
     const cylinderMaterial = new THREE.MeshLambertMaterial({
-      color: new THREE.Color(0, 0, 1),
+      color: new THREE.Color(0, 0, 2),
     });
     const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     cylinder.castShadow = true;
@@ -264,7 +267,7 @@ function Education(setScene) {
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
     const torousMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color(0.5, 0.5, 0),
+      color: new THREE.Color(1, 1, 0),
     });
     const torus = new THREE.Mesh(torousGeometry, torousMaterial);
     torus.castShadow = true;
@@ -276,7 +279,7 @@ function Education(setScene) {
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
     const torusKnotMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color(0, 0.5, 0.5),
+      color: new THREE.Color(0, 1, 1),
     });
     const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
     torusKnot.castShadow = true;
@@ -300,13 +303,14 @@ function Education(setScene) {
 
   function update() {
     if (ball) {
-      if(joystick._pressed){
+      if (joystick._pressed) {
         direction.x = joystick.deltaX() / 50;
         direction.z = joystick.deltaY() / 50;
       }
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
       ball.position.clampLength(0, floorRadius - 1);
+      camera.lookAt(ball.position);
     }
   }
 
