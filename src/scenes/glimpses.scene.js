@@ -75,7 +75,7 @@ function goSafety() {
     var textureBackground = new THREE.TextureLoader().load('static/imgs/glimpses_page/Background.png');
     var materialBackground = new THREE.MeshBasicMaterial({ map: textureBackground , transparent:true});
     Background = new THREE.Mesh(planeBackground, materialBackground);
-    Background.position.set(0,0, 0);
+    Background.position.set(0.3,0, 0);
     scene.add(Background); 
 
 
@@ -108,7 +108,7 @@ function goSafety() {
    HealthText.position.set(0,-1.25, 0);
    scene.add(HealthText); 
 
-  var planeLine = new THREE.PlaneGeometry(612/300, 53/300);
+  var planeLine = new THREE.PlaneGeometry(612/200, 53/200);
   var textureLine= new THREE.TextureLoader().load('static/imgs/glimpses_page/Line.png');
   var materialLine = new THREE.MeshBasicMaterial({ map: textureLine , transparent:true});
   Line= new THREE.Mesh(planeLine, materialLine);
