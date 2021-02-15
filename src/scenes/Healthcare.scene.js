@@ -9,6 +9,7 @@ const floorRadius = 40;
 
 var Back;
 var Vote;
+var Message;
 
 function Healthcare(setScene) {
   var direction = new THREE.Vector3();
@@ -47,6 +48,17 @@ function Healthcare(setScene) {
   initLights();
   initObjects();
   loadAudios();
+
+  var added = false; // objects not added before the mouse
+  function overTheVote(envet) {
+    // hover
+    if (!added) {
+      added = true;
+      setTimeout(() => {
+        scene.add(Message);
+      }, 1000);
+    }
+  }
 
   function handleOrientation(event) {}
 
@@ -169,6 +181,21 @@ function Healthcare(setScene) {
     Vote.cursor = 'pointer';
     Vote.on('click', click);
     Vote.on('touchstart', click);
+
+   Vote.on('mouseover', overTheVote);
+  Vote.on('touchstart', overTheVote);
+
+    var planeMessage = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
+    var textureMessage = new THREE.TextureLoader().load(
+      'static/imgs/Healthcare_page/Message.png'
+    );
+    var materialMessage = new THREE.MeshBasicMaterial({
+      map: textureMessage,
+      transparent: true,
+    });
+    Message = new THREE.Mesh(planeMessage, materialMessage);
+    Message.position.set(-0.3, -1.8, 0.01);
+
 
     var planeBack = new THREE.PlaneGeometry(116 / 50, 63 / 50);
     var textureBack = new THREE.TextureLoader().load(
