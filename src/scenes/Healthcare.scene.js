@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 
+import VirtualJoystick from '../virtualjoystick';
+
 import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
-const audioLoader = new THREE.AudioLoader();
-
-const floorRadius = 15;
+const floorRadius = 40;
 
 var Back;
 var Vote;
@@ -14,7 +14,6 @@ function Healthcare(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
 
-  var audiosLoaded = 0;
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
 
   var camera = new THREE.PerspectiveCamera(
@@ -34,8 +33,19 @@ function Healthcare(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+
+  var joystick = new VirtualJoystick({
+    mouseSupport: true,
+    stationaryBase: true,
+    baseX: window.innerWidth / 2,
+    baseY: window.innerHeight - 150,
+    limitStickTravel: true,
+    stickRadius: 50,
+  });
+
   initLights();
   loadAudios();
+  initObjects();
 
   function handleOrientation(event) {}
 
@@ -73,6 +83,7 @@ function Healthcare(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
+    joystick.destroy();
   }
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -84,6 +95,8 @@ function Healthcare(setScene) {
     spotLight.position.set(20, 20, 20);
     spotLight.lookAt(0, 0, 0);
     spotLight.castShadow = true;
+    const light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
   }
 
   function getPositionFromAngle(angle, yPos = 1) {
@@ -112,65 +125,32 @@ function Healthcare(setScene) {
     setScene(bs);
   }
 
-  function audioLoaded() {
-    ++audiosLoaded;
-    console.log(audiosLoaded);
-    if (audiosLoaded == 5) {
-      initObjects();
-    }
-  }
-
   function loadAudios() {
-    const refDistance = 1;
+    const refDistance = 0.5;
     // cube sound
+   
+    const cubeAudioElement = document.getElementById('sound-heathcare-01');
+    cubeAudioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Healthcare/audio1.ogg', function (buffer) {
-      cubeSound.setBuffer(buffer);
-      cubeSound.setRefDistance(refDistance);
-      cubeSound.setLoop(true);
-      cubeSound.play();
-      audioLoaded();
-    });
+    cubeSound.setMediaElementSource(cubeAudioElement);
+    cubeSound.setRefDistance(refDistance);
+    cubeSound.loop = true;
+    cube.add(cubeSound);
+
+
     // cone sound
+    const coneAudioElement = document.getElementById('sound-healthcare-02');
+    coneAudioElement.play();
     coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Healthcare/audio2.ogg', function (buffer) {
-      coneSound.setBuffer(buffer);
-      coneSound.setRefDistance(refDistance);
-      coneSound.setLoop(true);
-      coneSound.play();
-      audioLoaded();
-    });
+    coneSound.setMediaElementSource(coneAudioElement);
+    coneSound.setRefDistance(refDistance);
+    coneSound.loop = true;
+    cone.add(coneSound);
 
-    // cylinder sound
-    cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Healthcare/audio3.ogg', function (buffer) {
-      cylinderSound.setBuffer(buffer);
-      cylinderSound.setRefDistance(refDistance);
-      cylinderSound.setLoop(true);
-      cylinderSound.play();
-      audioLoaded();
-    });
-
-    // Torous sound
-    torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Healthcare/audio4.ogg', function (buffer) {
-      torousSound.setBuffer(buffer);
-      torousSound.setRefDistance(refDistance);
-      torousSound.setLoop(true);
-      torousSound.play();
-      audioLoaded();
-    });
-
-    // TorousKnot sound
-    torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Healthcare/audio5.ogg', function (buffer) {
-      torousKnotSound.setBuffer(buffer);
-      torousKnotSound.setRefDistance(refDistance);
-      torousKnotSound.setLoop(true);
-      torousKnotSound.play();
-      audioLoaded();
-    });
+    
   }
+
+
 
   function initObjects() {
     var planeVote = new THREE.PlaneGeometry(113 / 50, 63 / 50);
@@ -290,9 +270,14 @@ function Healthcare(setScene) {
 
   function update() {
     if (ball) {
+      if (joystick._pressed) {
+        direction.x = joystick.deltaX() / 50;
+        direction.z = joystick.deltaY() / 50;
+      }
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
       ball.position.clampLength(0, floorRadius - 1);
+      camera.lookAt(ball.position);
     }
   }
 
