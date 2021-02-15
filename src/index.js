@@ -3,7 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import titleScene from './scenes/title.scene';
+import glimpsesScene from './scenes/glimpses.scene';
 import { isUnlocked, unlock } from './unlockAudio';
 
 if (WEBGL.isWebGLAvailable()) {
@@ -27,7 +27,7 @@ if (WEBGL.isWebGLAvailable()) {
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
     window.addEventListener('touchstart', enableAudio, false);
-    var firstScene = titleScene(setScene);
+    var firstScene = glimpsesScene(setScene);
     setScene(firstScene);
   }
 
