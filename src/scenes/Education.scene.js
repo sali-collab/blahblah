@@ -108,9 +108,9 @@ function Education(setScene) {
   function stopAll() {
     cubeSound.stop();
     coneSound.stop();
-    cylinderSound.stop();
-    torousSound.stop();
-    torousKnotSound.stop();
+    //cylinderSound.stop();
+    //torousSound.stop();
+    //torousKnotSound.stop();
   }
 
   function click() {
