@@ -4,7 +4,6 @@ import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
 import titleScene from './scenes/title.scene';
-import { isUnlocked, unlock } from './unlockAudio';
 
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -26,15 +25,8 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    window.addEventListener('touchstart', enableAudio, false);
     var firstScene = titleScene(setScene);
     setScene(firstScene);
-  }
-
-  function enableAudio() {
-    if (!isUnlocked) {
-      unlock();
-    }
   }
 
   function onWindowResize() {
