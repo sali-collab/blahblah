@@ -153,32 +153,7 @@ function Education(setScene) {
     coneSound.loop = true;
     cone.add(coneSound);
 
-    // cylinder sound
-    const cylinderAudioElement = document.getElementById('sound-education-03');
-    cylinderAudioElement.play();
-    cylinderSound = new THREE.PositionalAudio(listener);
-    cylinderSound.setMediaElementSource(coneAudioElement);
-    cylinderSound.setRefDistance(refDistance);
-    cylinderSound.loop = true;
-    cylinder.add(cylinderSound);
-/*
-    // Torous sound
-    const torousAudioElement = document.getElementById('sound-education-04');
-    torousAudioElement.play();
-    torousSound = new THREE.PositionalAudio(listener);
-    torousSound.setMediaElementSource(torousAudioElement);
-    torousSound.setRefDistance(refDistance);
-    torousSound.loop = true;
-    torous.add(torousSound);
-
-    // TorousKnot sound
-    const torousKnotAudioElement = document.getElementById('sound-education-05');
-    torousKnotAudioElement.play();
-    torousKnotSound = new THREE.PositionalAudio(listener);
-    torousKnotSound.setMediaElementSource(torousKnotAudioElement);
-    torousKnotSound.setRefDistance(refDistance);
-    torousKnotSound.loop = true;
-    torousKnot.add(torousKnotSound);*/
+    
   }
 
   function initObjects() {
