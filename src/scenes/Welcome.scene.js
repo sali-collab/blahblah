@@ -7,6 +7,7 @@ import RegistrationScene from './registration.scene';
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
+
 // Main scene objs
 var camera;
 var scene;
@@ -72,6 +73,7 @@ function WelcomeScene(setScene) {
       str = '0' + str;
     }
     return str;
+    // for the animation files, because there are numerous e.g 01, 02 , 03
   }
 
   function loadBinTextures() {
