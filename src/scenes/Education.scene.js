@@ -34,7 +34,6 @@ function Education(setScene) {
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
 
-
   var joystick = new VirtualJoystick({
     mouseSupport: true,
     stationaryBase: true,
@@ -143,18 +142,18 @@ function Education(setScene) {
     cubeSound = new THREE.PositionalAudio(listener);
     cubeSound.setMediaElementSource(cubeAudioElement);
     cubeSound.setRefDistance(refDistance);
+    cubeSound.loop = true;
     cube.add(cubeSound);
-    /*// cone sound
+    // cone sound
+    const coneAudioElement = document.getElementById('sound-education-02');
+    coneAudioElement.play();
     coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio2.ogg', function (buffer) {
-      coneSound.setBuffer(buffer);
-      coneSound.setRefDistance(refDistance);
-      coneSound.setLoop(true);
-      coneSound.play();
+    coneSound.setMediaElementSource(coneAudioElement);
+    coneSound.setRefDistance(refDistance);
+    coneSound.loop = true;
+    cone.add(coneSound);
 
-      cone.add(coneSound);
-    });
-
+    /*
     // cylinder sound
     cylinderSound = new THREE.PositionalAudio(listener);
     audioLoader.load('static/audios/Education/audio3.ogg', function (buffer) {
