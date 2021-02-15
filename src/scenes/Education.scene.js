@@ -144,6 +144,9 @@ function Education(setScene) {
     cubeSound.setRefDistance(refDistance);
     cubeSound.loop = true;
     cube.add(cubeSound);
+
+    
+    
     // cone sound
     const coneAudioElement = document.getElementById('sound-education-02');
     coneAudioElement.play();
