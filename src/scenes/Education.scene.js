@@ -106,7 +106,12 @@ function Education(setScene) {
   }
 
   function stopAll() {
+    const cubeAudioElement = document.getElementById('sound-education-01');
+    cubeAudioElement.stop();
     cubeSound.stop();
+
+    const coneAudioElement = document.getElementById('sound-education-02');
+    coneAudioElement.stop();
     coneSound.stop();
     //cylinderSound.stop();
     //torousSound.stop();
@@ -145,8 +150,6 @@ function Education(setScene) {
     cubeSound.loop = true;
     cube.add(cubeSound);
 
-    
-    
     // cone sound
     const coneAudioElement = document.getElementById('sound-education-02');
     coneAudioElement.play();
@@ -155,8 +158,6 @@ function Education(setScene) {
     coneSound.setRefDistance(refDistance);
     coneSound.loop = true;
     cone.add(coneSound);
-
-    
   }
 
   function initObjects() {
@@ -234,7 +235,7 @@ function Education(setScene) {
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
-/*
+    /*
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
     const torousMaterial = new THREE.MeshBasicMaterial({
