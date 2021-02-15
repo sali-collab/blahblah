@@ -1,6 +1,6 @@
 var isUnlocked = false;
 function unlock() {
-  if (isIOS || this.unlocked) return;
+  if (this.unlocked) return;
 
   // create empty buffer and play it
   var buffer = myContext.createBuffer(1, 1, 22050);
