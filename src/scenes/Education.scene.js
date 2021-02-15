@@ -153,36 +153,32 @@ function Education(setScene) {
     coneSound.loop = true;
     cone.add(coneSound);
 
-    /*
     // cylinder sound
+    const cylinderAudioElement = document.getElementById('sound-education-03');
+    cylinderAudioElement.play();
     cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio3.ogg', function (buffer) {
-      cylinderSound.setBuffer(buffer);
-      cylinderSound.setRefDistance(refDistance);
-      cylinderSound.setLoop(true);
-      cylinderSound.play();
-      cylinder.add(cylinderSound);
-    });
+    cylinderSound.setMediaElementSource(coneAudioElement);
+    cylinderSound.setRefDistance(refDistance);
+    cylinderSound.loop = true;
+    cylinder.add(cylinderSound);
 
     // Torous sound
+    const torousAudioElement = document.getElementById('sound-education-04');
+    torousAudioElement.play();
     torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio4.ogg', function (buffer) {
-      torousSound.setBuffer(buffer);
-      torousSound.setRefDistance(refDistance);
-      torousSound.setLoop(true);
-      torousSound.play();
-      torous.add(torousSound);
-    });
+    torousSound.setMediaElementSource(torousAudioElement);
+    torousSound.setRefDistance(refDistance);
+    torousSound.loop = true;
+    torous.add(torousSound);
 
     // TorousKnot sound
+    const torousKnotAudioElement = document.getElementById('sound-education-05');
+    torousKnotAudioElement.play();
     torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Education/audio5.ogg', function (buffer) {
-      torousKnotSound.setBuffer(buffer);
-      torousKnotSound.setRefDistance(refDistance);
-      torousKnotSound.setLoop(true);
-      torousKnotSound.play();
-      torousKnot.add(torousKnotSound);
-    });*/
+    torousKnotSound.setMediaElementSource(torousKnotAudioElement);
+    torousKnotSound.setRefDistance(refDistance);
+    torousKnotSound.loop = true;
+    torousKnot.add(torousKnotSound);
   }
 
   function initObjects() {
