@@ -5,7 +5,6 @@ import VirtualJoystick from '../virtualjoystick';
 import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
-const audioLoader = new THREE.AudioLoader();
 const floorRadius = 40;
 var Back;
 var Vote;
@@ -13,7 +12,6 @@ var Vote;
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
-  var source;
 
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
   var cube, cone, cylinder, torous, torousKnot;
@@ -36,11 +34,6 @@ function Education(setScene) {
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
 
-  window.addEventListener('touchstart', () => {
-    source = listener.context.createBufferSource();
-    source.connect(listener.context.destination);
-    source.start();
-  });
 
   var joystick = new VirtualJoystick({
     mouseSupport: true,
@@ -145,11 +138,11 @@ function Education(setScene) {
     const refDistance = 0.5;
     // cube sound
 
-    const audioElement = document.getElementById('sound-education-01');
-    audioElement.play();
+    const cubeAudioElement = document.getElementById('sound-education-01');
+    cubeAudioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
-    cubeSound.setMediaElementSource(audioElement);
-    cubeSound.setRefDistance(1);
+    cubeSound.setMediaElementSource(cubeAudioElement);
+    cubeSound.setRefDistance(refDistance);
     cube.add(cubeSound);
     /*// cone sound
     coneSound = new THREE.PositionalAudio(listener);
