@@ -161,7 +161,7 @@ function Education(setScene) {
     cylinderSound.setRefDistance(refDistance);
     cylinderSound.loop = true;
     cylinder.add(cylinderSound);
-
+/*
     // Torous sound
     const torousAudioElement = document.getElementById('sound-education-04');
     torousAudioElement.play();
@@ -178,7 +178,7 @@ function Education(setScene) {
     torousKnotSound.setMediaElementSource(torousKnotAudioElement);
     torousKnotSound.setRefDistance(refDistance);
     torousKnotSound.loop = true;
-    torousKnot.add(torousKnotSound);
+    torousKnot.add(torousKnotSound);*/
   }
 
   function initObjects() {
@@ -256,7 +256,7 @@ function Education(setScene) {
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
-
+/*
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
     const torousMaterial = new THREE.MeshBasicMaterial({
@@ -277,7 +277,7 @@ function Education(setScene) {
     torousKnot.castShadow = true;
     torousKnot.receiveShadow = true;
     torousKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
-    scene.add(torousKnot);
+    scene.add(torousKnot);*/
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
