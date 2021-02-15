@@ -15,6 +15,7 @@ function Healthcare(setScene) {
   var listener = new THREE.AudioListener();
 
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
+  var cube, cone, cylinder, torous, torousKnot;
 
   var camera = new THREE.PerspectiveCamera(
     45,
@@ -44,8 +45,8 @@ function Healthcare(setScene) {
   });
 
   initLights();
-  loadAudios();
   initObjects();
+  loadAudios();
 
   function handleOrientation(event) {}
 
@@ -108,9 +109,9 @@ function Healthcare(setScene) {
   function stopAll() {
     cubeSound.stop();
     coneSound.stop();
-    cylinderSound.stop();
-    torousSound.stop();
-    torousKnotSound.stop();
+   // cylinderSound.stop();
+    //torousSound.stop();
+    //torousKnotSound.stop();
   }
 
   function click() {
@@ -126,10 +127,10 @@ function Healthcare(setScene) {
   }
 
   function loadAudios() {
-    const refDistance = 0.5;
+    const refDistance = 0.8;
     // cube sound
    
-    const cubeAudioElement = document.getElementById('sound-heathcare-01');
+    const cubeAudioElement = document.getElementById('sound-healthcare-01');
     cubeAudioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
     cubeSound.setMediaElementSource(cubeAudioElement);
@@ -200,11 +201,11 @@ function Healthcare(setScene) {
     var cubeMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(1, 0, 0),
     });
-    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
     cube.receiveShadow = true;
     cube.position.copy(getPositionFromAngle(0));
-    cube.add(cubeSound);
+
     scene.add(cube);
 
     // Cone code
@@ -212,12 +213,11 @@ function Healthcare(setScene) {
     var coneMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 1, 0),
     });
-    var cone = new THREE.Mesh(coneGeometry, coneMaterial);
+    cone = new THREE.Mesh(coneGeometry, coneMaterial);
     cone.castShadow = true;
     cone.receiveShadow = true;
     cone.position.copy(getPositionFromAngle(Math.PI * 0.4));
     scene.add(cone);
-    cone.add(coneSound);
 
     // Cynder code
     const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
@@ -229,7 +229,6 @@ function Healthcare(setScene) {
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
-    cylinder.add(cylinderSound);
 
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
@@ -241,7 +240,6 @@ function Healthcare(setScene) {
     torus.receiveShadow = true;
     torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
     scene.add(torus);
-    torus.add(torousSound);
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
@@ -253,7 +251,6 @@ function Healthcare(setScene) {
     torusKnot.receiveShadow = true;
     torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
     scene.add(torusKnot);
-    torusKnot.add(torousKnotSound);
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
@@ -277,7 +274,7 @@ function Healthcare(setScene) {
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
       ball.position.clampLength(0, floorRadius - 1);
-      camera.lookAt(ball.position);
+     camera.lookAt(ball.position);
     }
   }
 
