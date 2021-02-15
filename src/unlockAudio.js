@@ -1,7 +1,9 @@
+const { AudioContext } = require('three');
+
 var isUnlocked = false;
 function unlock() {
   if (this.unlocked) return;
-
+  const myContext = AudioContext.getContext();
   // create empty buffer and play it
   var buffer = myContext.createBuffer(1, 1, 22050);
   var source = myContext.createBufferSource();

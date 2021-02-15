@@ -5,6 +5,13 @@ import VirtualJoystick from '../virtualjoystick';
 import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
+
+
+// Loaders
+var textureLoader = new THREE.TextureLoader();
+var audioLoader = new THREE.AudioLoader();
+var fontLoader = new THREE.FontLoader();
+
 const floorRadius = 40;
 var Back;
 var Vote;
@@ -106,12 +113,7 @@ function Education(setScene) {
   }
 
   function stopAll() {
-    const cubeAudioElement = document.getElementById('sound-education-01');
-    cubeAudioElement.stop();
     cubeSound.stop();
-
-    const coneAudioElement = document.getElementById('sound-education-02');
-    coneAudioElement.stop();
     coneSound.stop();
     //cylinderSound.stop();
     //torousSound.stop();
@@ -130,34 +132,27 @@ function Education(setScene) {
     setScene(bs);
   }
 
-  /*function audioLoaded() {
-    ++audiosLoaded;
-    console.log(audiosLoaded);
-    if (audiosLoaded == 5) {
-      initObjects();
-    }
-  }*/
-
   function loadAudios() {
     const refDistance = 0.5;
     // cube sound
-
-    const cubeAudioElement = document.getElementById('sound-education-01');
-    cubeAudioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
-    cubeSound.setMediaElementSource(cubeAudioElement);
-    cubeSound.setRefDistance(refDistance);
-    cubeSound.loop = true;
-    cube.add(cubeSound);
+    audioLoader.load('static/audios/Education/audio1.ogg', function (buffer) {
+      cubeSound.setBuffer(buffer);
+      cubeSound.setLoop(true);
+      cubeSound.setRefDistance(refDistance);
+      cubeSound.play();
+      cube.add(cubeSound);
+    });
 
     // cone sound
-    const coneAudioElement = document.getElementById('sound-education-02');
-    coneAudioElement.play();
     coneSound = new THREE.PositionalAudio(listener);
-    coneSound.setMediaElementSource(coneAudioElement);
-    coneSound.setRefDistance(refDistance);
-    coneSound.loop = true;
-    cone.add(coneSound);
+    audioLoader.load('static/audios/Education/audio2.ogg', function (buffer) {
+      coneSound.setBuffer(buffer);
+      coneSound.setLoop(true);
+      coneSound.setRefDistance(refDistance);
+      coneSound.play();
+      cone.add(coneSound);
+    });
   }
 
   function initObjects() {
