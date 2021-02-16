@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-
+import Impact2Scene from './Impact2.scene';
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -45,15 +45,16 @@ function ImpactScene(setScene,color) {
     spotLight.position.set(10, 10, 10);
   }
 
+  function goImpact() {
+    var is = Impact2Scene(setScene);
+    setScene(is);
+  }
+
   function initObjects() {
    
-    var planeFrontArrow = new THREE.PlaneGeometry(178/300, 93/300);
-    var textureFrontArrow = new THREE.TextureLoader().load('static/imgs/Impact_page/FrontArrow.png');
-    var materialFrontArrow = new THREE.MeshBasicMaterial({ map: textureFrontArrow , transparent:true});
-    FrontArrow = new THREE.Mesh(planeFrontArrow, materialFrontArrow);
-    FrontArrow.position.set(1.3,-1,0.1);
-    scene.add(FrontArrow); 
+ 
 
+    
 
     var planeText = new THREE.PlaneGeometry(816/350, 290/350);
     var textureText = new THREE.TextureLoader().load('static/imgs/Impact_page/Text.png');
@@ -76,12 +77,22 @@ function ImpactScene(setScene,color) {
     FoodBank.position.set(1.1,2.3,0.1);
     scene.add(FoodBank);
 
-    var planeFreeHealth = new THREE.PlaneGeometry(413/250, 375/250);
+    var planeFreeHealth = new THREE.PlaneGeometry(413/300, 375/300);
     var textureFreeHealth  = new THREE.TextureLoader().load('static/imgs/Impact_page/FreeHealth.png');
     var materialFreeHealth  = new THREE.MeshBasicMaterial({ map: textureFreeHealth  , transparent:true});
     FreeHealth = new THREE.Mesh(planeFreeHealth , materialFreeHealth );
     FreeHealth.position.set(-0.8,1.5,0.1);
     scene.add(FreeHealth);
+
+    var planeFrontArrow = new THREE.PlaneGeometry(178/300, 93/300);
+    var textureFrontArrow = new THREE.TextureLoader().load('static/imgs/Impact_page/FrontArrow.png');
+    var materialFrontArrow = new THREE.MeshBasicMaterial({ map: textureFrontArrow , transparent:true});
+    FrontArrow = new THREE.Mesh(planeFrontArrow, materialFrontArrow);
+    FrontArrow.position.set(1.3,-1,0.1);
+    scene.add(FrontArrow); 
+    FrontArrow.cursor = 'pointer';
+    FrontArrow.on('click', goImpact);
+    FrontArrow.on('touchstart', goImpact);
 
   }
 
