@@ -8,7 +8,11 @@ var camera;
 var scene;
 //assets 
 
-var Background;
+var FoodBank;
+var FreeHealth;
+var Investment;
+var Text;
+var FrontArrow;
 
 
 function ImpactScene(setScene,color) {
@@ -43,15 +47,41 @@ function ImpactScene(setScene,color) {
 
   function initObjects() {
    
-    var planeBackground = new THREE.PlaneGeometry(1080/300, 1920/300);
-    var textureBackground = new THREE.TextureLoader().load('static/imgs/Impact_page/Background.png');
-    var materialBackground = new THREE.MeshBasicMaterial({ map: textureBackground , transparent:true});
-    Background = new THREE.Mesh(planeBackground, materialBackground);
-    Background.position.set(0,0, 0);
-    scene.add(Background); 
+    var planeFrontArrow = new THREE.PlaneGeometry(178/300, 93/300);
+    var textureFrontArrow = new THREE.TextureLoader().load('static/imgs/Impact_page/FrontArrow.png');
+    var materialFrontArrow = new THREE.MeshBasicMaterial({ map: textureFrontArrow , transparent:true});
+    FrontArrow = new THREE.Mesh(planeFrontArrow, materialFrontArrow);
+    FrontArrow.position.set(1.3,-1,0.1);
+    scene.add(FrontArrow); 
 
-   
 
+    var planeText = new THREE.PlaneGeometry(816/350, 290/350);
+    var textureText = new THREE.TextureLoader().load('static/imgs/Impact_page/Text.png');
+    var materialText = new THREE.MeshBasicMaterial({ map: textureText , transparent:true});
+    Text = new THREE.Mesh(planeText, materialText);
+    Text.position.set(-0.5,-0.3,0.1);
+    scene.add(Text); 
+
+    var planeInvestment = new THREE.PlaneGeometry(588/250, 403/250);
+    var textureInvestment = new THREE.TextureLoader().load('static/imgs/Impact_page/Investment.png');
+    var materialInvestment = new THREE.MeshBasicMaterial({ map: textureInvestment , transparent:true});
+    Investment = new THREE.Mesh(planeInvestment, materialInvestment);
+    Investment.position.set(0,-2,0.1);
+    scene.add(Investment);
+
+    var planeFoodBank = new THREE.PlaneGeometry(224/250, 273/250);
+    var textureFoodBank  = new THREE.TextureLoader().load('static/imgs/Impact_page/FoodBank.png');
+    var materialFoodBank  = new THREE.MeshBasicMaterial({ map: textureFoodBank  , transparent:true});
+    FoodBank= new THREE.Mesh(planeFoodBank , materialFoodBank );
+    FoodBank.position.set(1.1,2.3,0.1);
+    scene.add(FoodBank);
+
+    var planeFreeHealth = new THREE.PlaneGeometry(413/250, 375/250);
+    var textureFreeHealth  = new THREE.TextureLoader().load('static/imgs/Impact_page/FreeHealth.png');
+    var materialFreeHealth  = new THREE.MeshBasicMaterial({ map: textureFreeHealth  , transparent:true});
+    FreeHealth = new THREE.Mesh(planeFreeHealth , materialFreeHealth );
+    FreeHealth.position.set(-0.8,1.5,0.1);
+    scene.add(FreeHealth);
 
   }
 
