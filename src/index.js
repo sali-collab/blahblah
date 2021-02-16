@@ -3,8 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import HealthcareScene from './scenes/Healthcare.scene';
-import impactScene from './scenes/Impact.scene';
+import TitleScene from './scenes/title.scene';
 
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -17,6 +16,10 @@ if (WEBGL.isWebGLAvailable()) {
   init();
   render();
 
+  function preventBehavior(e) {
+    e.preventDefault();
+  }
+
   function init() {
     initDatabase();
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -26,7 +29,8 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    var firstScene = impactScene(setScene);
+    document.addEventListener('touchmove', preventBehavior, { passive: false });
+    var firstScene = TitleScene(setScene);
     setScene(firstScene);
   }
 
@@ -43,20 +47,20 @@ if (WEBGL.isWebGLAvailable()) {
   function setScene(sceneObj) {
     if (!going) {
       going = true;
-      setTimeout(() => {
-        if (destroy != null) destroy();
-        if (scene) {
-          while (scene.children.length > 0) {
-            scene.remove(scene.children[0]);
-          }
+      if (destroy != null) destroy();
+      if (scene) {
+        while (scene.children.length > 0) {
+          scene.remove(scene.children[0]);
         }
-        scene = sceneObj.scene;
-        camera = sceneObj.camera;
-        update = sceneObj.update;
-        destroy = sceneObj.destroy;
+      }
+      scene = sceneObj.scene;
+      camera = sceneObj.camera;
+      update = sceneObj.update;
+      destroy = sceneObj.destroy;
+      setTimeout(() => {
         interaction = new Interaction(renderer, scene, camera);
         going = false;
-      }, 250);
+      }, 1000);
     }
   }
 } else {

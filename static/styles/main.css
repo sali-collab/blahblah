@@ -87,3 +87,11 @@ p {
   width: 400px;
   margin: 5em auto 0;
 }
+#joycontainer {
+  position: absolute;
+  width: 50%;
+  height: 25%;
+  left: 25%;
+  bottom: 0px;
+  display: none;
+}
