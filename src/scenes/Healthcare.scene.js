@@ -149,8 +149,8 @@ function Healthcare(setScene) {
     const refDistance = 0.8;
     // cube sound
    
-    const cubeAudioElement = document.getElementById('sound-healthcare-01');
-    cubeAudioElement.play();
+   /* const cubeAudioElement = document.getElementById('sound-healthcare-01');
+    //cubeAudioElement.play();
     cubeSound = new THREE.PositionalAudio(listener);
     cubeSound.setMediaElementSource(cubeAudioElement);
     cubeSound.setRefDistance(refDistance);
@@ -160,20 +160,20 @@ function Healthcare(setScene) {
 
     // cone sound
     const coneAudioElement = document.getElementById('sound-healthcare-02');
-    coneAudioElement.play();
+   // coneAudioElement.play();
     coneSound = new THREE.PositionalAudio(listener);
     coneSound.setMediaElementSource(coneAudioElement);
     coneSound.setRefDistance(refDistance);
     coneSound.loop = true;
     cone.add(coneSound);
 
-    
+    */
   }
 
 
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 50, 63 / 50);
+    var planeVote = new THREE.PlaneGeometry(113 / 20, 63 / 20);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Vote.png'
     );
@@ -198,7 +198,7 @@ function Healthcare(setScene) {
       transparent: true,
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(8, 23, 0);
+    Message.position.set10, 23, 0);
 
     var planereadyToVote = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
     var texturereadyToVote = new THREE.TextureLoader().load(
