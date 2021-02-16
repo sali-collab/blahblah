@@ -57,6 +57,7 @@ function Healthcare(setScene) {
       added = true;
       setTimeout(() => {
         scene.add(Message);
+        scene.add(readyToVote);
       }, 1000);
     }
   }
@@ -185,6 +186,7 @@ function Healthcare(setScene) {
     Vote.lookAt(camera.position);
     scene.add(Vote);
     Vote.on('mouseover', overTheVote);
+    Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
     var planeMessage = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
@@ -196,8 +198,7 @@ function Healthcare(setScene) {
       transparent: true,
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(-0.3, -1.8, 0.01);
-    scene.add(Message);
+    Message.position.set(8, 23, 0);
 
     var planereadyToVote = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
     var texturereadyToVote = new THREE.TextureLoader().load(
@@ -208,11 +209,10 @@ function Healthcare(setScene) {
       transparent: true,
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
-    readyToVote.position.set(-0.3, -1.8, 0.01);
+    readyToVote.position.set(8, 22, 0);
     readyToVote.on('mouseover',voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
-    scene.add(readyToVote)
 
 
     var planeBack = new THREE.PlaneGeometry(116 / 50, 63 / 50);
