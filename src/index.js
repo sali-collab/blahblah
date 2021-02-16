@@ -26,7 +26,6 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    window.addEventListener('touchstart', enableAudio, false);
     var firstScene = glimpsesScene(setScene);
     setScene(firstScene);
   }

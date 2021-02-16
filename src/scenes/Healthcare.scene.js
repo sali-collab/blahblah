@@ -10,6 +10,7 @@ const floorRadius = 40;
 var Back;
 var Vote;
 var Message;
+var readyToVote;
 
 function Healthcare(setScene) {
   var direction = new THREE.Vector3();
@@ -58,6 +59,11 @@ function Healthcare(setScene) {
         scene.add(Message);
       }, 1000);
     }
+  }
+
+  function voteNow() {
+    var vs = voteScene(setScene);
+    setScene(vs);
   }
 
   function handleOrientation(event) {}
@@ -178,12 +184,8 @@ function Healthcare(setScene) {
     Vote.position.set(5, 23, 0);
     Vote.lookAt(camera.position);
     scene.add(Vote);
-    Vote.cursor = 'pointer';
-    Vote.on('click', click);
-    Vote.on('touchstart', click);
-
-   Vote.on('mouseover', overTheVote);
-  Vote.on('touchstart', overTheVote);
+    Vote.on('mouseover', overTheVote);
+    Vote.on('touchstart', overTheVote);
 
     var planeMessage = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
     var textureMessage = new THREE.TextureLoader().load(
@@ -195,6 +197,22 @@ function Healthcare(setScene) {
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
     Message.position.set(-0.3, -1.8, 0.01);
+    scene.add(Message);
+
+    var planereadyToVote = new THREE.PlaneGeometry(2163 / 1200, 1459 / 1200);
+    var texturereadyToVote = new THREE.TextureLoader().load(
+      'static/imgs/Healthcare_page/readyToVote.png'
+    );
+    var materialreadyToVote = new THREE.MeshBasicMaterial({
+      map: texturereadyToVote,
+      transparent: true,
+    });
+    readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
+    readyToVote.position.set(-0.3, -1.8, 0.01);
+    readyToVote.on('mouseover',voteNow);
+    readyToVote.on('touchstart', voteNow);
+    readyToVote.on('click', voteNow);
+    scene.add(readyToVote)
 
 
     var planeBack = new THREE.PlaneGeometry(116 / 50, 63 / 50);
