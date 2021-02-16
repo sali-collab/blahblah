@@ -4,7 +4,7 @@ import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
 import HealthcareScene from './scenes/Healthcare.scene';
-import glimpsesScene from './scenes/glimpses.scene';
+import impactScene from './scenes/Impact.scene';
 
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -26,7 +26,7 @@ if (WEBGL.isWebGLAvailable()) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
-    var firstScene = glimpsesScene(setScene);
+    var firstScene = impactScene(setScene);
     setScene(firstScene);
   }
 
