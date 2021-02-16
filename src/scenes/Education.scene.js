@@ -15,6 +15,8 @@ var fontLoader = new THREE.FontLoader();
 const floorRadius = 40;
 var Back;
 var Vote;
+var Message;
+var readyToVote;
 
 function Education(setScene) {
   var direction = new THREE.Vector3();
@@ -55,6 +57,24 @@ function Education(setScene) {
   loadAudios();
 
   function handleOrientation(event) {}
+
+  var added = false; // objects not added before the mouse
+  function overTheVote(envet) {
+    // hover
+    if (!added) {
+      added = true;
+      setTimeout(() => {
+        scene.add(Message);
+        scene.add(readyToVote);
+      }, 1000);
+    }
+  }
+
+  function voteNow() {
+    var vs = voteScene(setScene);
+    setScene(vs);
+  }
+
 
   function onKeyDown(event) {
     var code = event.code;
@@ -113,8 +133,8 @@ function Education(setScene) {
   }
 
   function stopAll() {
-    cubeSound.stop();
-    coneSound.stop();
+   // cubeSound.stop();
+   //  coneSound.stop();
     //cylinderSound.stop();
     //torousSound.stop();
     //torousKnotSound.stop();
@@ -156,7 +176,7 @@ function Education(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 50, 63 / 50);
+    var planeVote = new THREE.PlaneGeometry(113 / 20, 63 / 20);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Vote.png'
     );
@@ -168,11 +188,38 @@ function Education(setScene) {
     Vote.position.set(5, 23, 0);
     Vote.lookAt(camera.position);
     scene.add(Vote);
-    Vote.cursor = 'pointer';
-    Vote.on('click', click);
-    Vote.on('touchstart', click);
+    Vote.on('mouseover', overTheVote);
+    Vote.on('click', overTheVote);
+    Vote.on('touchstart', overTheVote);
 
-    var planeBack = new THREE.PlaneGeometry(116 / 50, 63 / 50);
+    var planeMessage = new THREE.PlaneGeometry(152 / 20, 73 / 20);
+    var textureMessage = new THREE.TextureLoader().load(
+      'static/imgs/Healthcare_page/Message.png'
+    );
+    var materialMessage = new THREE.MeshBasicMaterial({
+      map: textureMessage,
+      transparent: true,
+    });
+    Message = new THREE.Mesh(planeMessage, materialMessage);
+    Message.position.set(6, 19, 0);
+
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
+    var texturereadyToVote = new THREE.TextureLoader().load(
+      'static/imgs/Healthcare_page/readyToVote.png'
+    );
+    var materialreadyToVote = new THREE.MeshBasicMaterial({
+      map: texturereadyToVote,
+      transparent: true,
+    });
+    readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
+    readyToVote.position.set(6, 16, 0);
+    readyToVote.on('mouseover',voteNow);
+    readyToVote.on('touchstart', voteNow);
+    readyToVote.on('click', voteNow);
+
+
+
+    var planeBack = new THREE.PlaneGeometry(116 / 20, 63 / 20);
     var textureBack = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Back.png'
     );
@@ -181,7 +228,7 @@ function Education(setScene) {
       transparent: true,
     });
     Back = new THREE.Mesh(planeBack, materialBack);
-    Back.position.set(-5, 23, 0);
+    Back.position.set(-8, 23, 0);
     Back.lookAt(camera.position);
     scene.add(Back);
     Back.cursor = 'pointer';

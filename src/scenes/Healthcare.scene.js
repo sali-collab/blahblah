@@ -126,8 +126,8 @@ function Healthcare(setScene) {
   }
 
   function stopAll() {
-    cubeSound.stop();
-    coneSound.stop();
+   // cubeSound.stop();
+    //coneSound.stop();
    // cylinderSound.stop();
     //torousSound.stop();
     //torousKnotSound.stop();
@@ -200,7 +200,7 @@ function Healthcare(setScene) {
     Message = new THREE.Mesh(planeMessage, materialMessage);
     Message.position.set(6, 19, 0);
 
-    var planereadyToVote = new THREE.PlaneGeometry(89 / 10, 20 / 8);
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
     var texturereadyToVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/readyToVote.png'
     );
@@ -209,7 +209,7 @@ function Healthcare(setScene) {
       transparent: true,
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
-    readyToVote.position.set(6, 15, 0);
+    readyToVote.position.set(6, 16, 0);
     readyToVote.on('mouseover',voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
