@@ -202,9 +202,9 @@ function Healthcare(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 20, 63 / 20);
+    var planeVote = new THREE.PlaneGeometry(113 / 15, 63 / 15);
     var textureVote = new THREE.TextureLoader().load(
-      'static/imgs/Education_page/Vote.png'
+      'static/imgs/Healthcare_page/Vote.png'
     );
     var materialVote = new THREE.MeshBasicMaterial({
       map: textureVote,
@@ -243,7 +243,7 @@ function Healthcare(setScene) {
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
-    var planeBack = new THREE.PlaneGeometry(116 / 20, 63 / 20);
+    var planeBack = new THREE.PlaneGeometry(116 / 15, 63 / 15);
     var textureBack = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Back.png'
     );
