@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import Impact2Scene from './Impact2.scene';
+import voteScene from './vote.scene';
+
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -13,6 +15,7 @@ var FreeHealth;
 var Investment;
 var Text;
 var FrontArrow;
+var BackArrow;
 
 
 function ImpactScene(setScene,color) {
@@ -50,6 +53,10 @@ function ImpactScene(setScene,color) {
     setScene(is);
   }
 
+  function goImpactBk() {
+    var is = voteScene(setScene);
+    setScene(is);
+  }
   function initObjects() {
    
  
@@ -93,6 +100,16 @@ function ImpactScene(setScene,color) {
     FrontArrow.cursor = 'pointer';
     FrontArrow.on('click', goImpact);
     FrontArrow.on('touchstart', goImpact);
+
+    var planeBackArrow= new THREE.PlaneGeometry(178/300, 93/300);
+    var textureBackArrow = new THREE.TextureLoader().load('static/imgs/Impact_page/BackArrow.png');
+    var materialBackArrow = new THREE.MeshBasicMaterial({ map: textureBackArrow, transparent:true});
+    BackArrow = new THREE.Mesh(planeBackArrow, materialBackArrow);
+    BackArrow.position.set(-1.5,2.5,0.1);
+    scene.add(BackArrow); 
+    BackArrow.cursor = 'pointer';
+    BackArrow.on('click', goImpactBk);
+    BackArrow.on('touchstart', goImpactBk);
 
   }
 

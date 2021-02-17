@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+import Impact2Scene from './Impact2.scene';
+
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -10,6 +12,7 @@ var scene;
 
 var Police;
 var Back2School;
+var BackArrow;
 
 
 function ImpactScene(setScene,color) {
@@ -42,6 +45,11 @@ function ImpactScene(setScene,color) {
     spotLight.position.set(10, 10, 10);
   }
 
+  function goImpactBk() {
+    var is = Impact2Scene(setScene);
+    setScene(is);
+  }
+
   function initObjects() {
    
     var planePolice = new THREE.PlaneGeometry(421/300, 630/300);
@@ -58,10 +66,19 @@ function ImpactScene(setScene,color) {
     Back2School.position.set(0.5,2, 0);
     scene.add(Back2School); 
 
-   
+    var planeBackArrow = new THREE.PlaneGeometry(178/300, 93/300);
+    var textureBackArrow = new THREE.TextureLoader().load('static/imgs/Impact3_page/BackArrow.png');
+    var materialBackArrow = new THREE.MeshBasicMaterial({ map: textureBackArrow , transparent:true});
+    BackArrow= new THREE.Mesh(planeBackArrow, materialBackArrow);
+    BackArrow.position.set(-1.4,0.8, 0);
+  BackArrow.cursor = 'pointer';
+  BackArrow.on('click', goImpactBk);
+  BackArrow.on('touchstart', goImpactBk);
+    scene.add(BackArrow); 
 
 
   }
+
 
   function update() {
   

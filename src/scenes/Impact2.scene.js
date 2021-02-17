@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Impact3Scene from './Impact3.scene';
-
+import ImpactScene from './Impact.scene';
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -13,9 +13,10 @@ var FrontArrow;
 var Insurance;
 var Scholar;
 var SkillsTraining;
+var BackArrow;
 
 
-function ImpactScene(setScene,color) {
+function Impact2Scene(setScene,color) {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
@@ -48,6 +49,11 @@ function ImpactScene(setScene,color) {
   function goImpact() {
     var is = Impact3Scene(setScene);
     setScene(is);
+  }
+
+  function goImpact1() {
+    var iss = ImpactScene(setScene);
+    setScene(iss);
   }
 
   function initObjects() {
@@ -85,6 +91,16 @@ function ImpactScene(setScene,color) {
     FrontArrow.on('click', goImpact);
     FrontArrow.on('touchstart', goImpact);
 
+    var planeBackArrow = new THREE.PlaneGeometry(178/300, 93/300);
+    var textureBackArrow   = new THREE.TextureLoader().load('static/imgs/Impact2_page/BackArrow.png');
+    var materialBackArrow  = new THREE.MeshBasicMaterial({ map: textureBackArrow , transparent:true});
+    BackArrow  = new THREE.Mesh(planeBackArrow , materialBackArrow);
+    BackArrow.position.set(-1.4,-2,0);
+    scene.add(BackArrow); 
+    BackArrow.cursor = 'pointer';
+    BackArrow.on('click', goImpact1);
+    BackArrow.on('touchstart', goImpact1);
+
   }
 
   
@@ -101,4 +117,4 @@ function ImpactScene(setScene,color) {
     destroy,
   };
 }
-export default ImpactScene;
+export default Impact2Scene;
