@@ -114,7 +114,7 @@ function voteScene(setScene, color) {
     voteHealth.position.set(-1.1, -0.5, 0.01);
     voteHealth.pointer = "pointer";
     voteHealth.on("click",()=>voteFor("HEALTH"));
-    voteHealth.on("touchstart",()=>voteFor("HEALT"));
+    voteHealth.on("touchstart",()=>voteFor("HEALTH"));
     scene.add(voteHealth);
 
     var planevoteNo = new THREE.PlaneGeometry(430 / 1350, 381 / 1350);

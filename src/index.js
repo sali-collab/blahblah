@@ -3,7 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import Impact3Scene from './scenes/Impact3.scene';
+import RegistrationScene from './scenes/Registration.scene';
 
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -30,7 +30,7 @@ if (WEBGL.isWebGLAvailable()) {
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('touchmove', preventBehavior, { passive: false });
-    var firstScene = Impact3Scene(setScene);
+    var firstScene = RegistrationScene(setScene);
     setScene(firstScene);
   }
 
