@@ -74,7 +74,7 @@ function voteScene(setScene, color) {
       transparent: true,
     });
     voteEdu = new THREE.Mesh(planevoteEdu, materialvoteEdu);
-    voteEdu.position.set(-1.1, 0.47, 0.01);
+    voteEdu.position.set(-1.2, -0.39, 0.01);
     voteEdu.pointer = "pointer";
     voteEdu.on("click",()=>voteFor("EDUCATION"));
     voteEdu.on("touchstart",()=>voteFor("EDUCATION"));
@@ -89,7 +89,7 @@ function voteScene(setScene, color) {
       transparent: true,
     });
     voteSaf = new THREE.Mesh(planevoteSaf, materialvoteSaf);
-    voteSaf.position.set(-1.1, 0, 0.01);
+    voteSaf.position.set(-1.2, -0.85, 0.01);
     voteSaf.pointer = "pointer";
     voteSaf.on("click",()=>voteFor("SAFETY"));
     voteSaf.on("touchstart",()=>voteFor("SAFETY"));
@@ -104,7 +104,7 @@ function voteScene(setScene, color) {
       transparent: true,
     });
     voteHealth = new THREE.Mesh(planevoteHealth, materialvoteHealth);
-    voteHealth.position.set(-1.1, -0.5, 0.01);
+    voteHealth.position.set(-1.2, -1.33, 0.01);
     voteHealth.pointer = "pointer";
     voteHealth.on("click",()=>voteFor("HEALTH"));
     voteHealth.on("touchstart",()=>voteFor("HEALTH"));
