@@ -75,7 +75,7 @@ function DataVisScene(setScene) {
     Background.position.set(0, 0, 0);
     scene.add(Background);
 
-    var planeImpact = new THREE.PlaneGeometry(75 / 300, 268 / 300);
+    var planeImpact = new THREE.PlaneGeometry(342 / 300, 91 / 300);
     var textureImpact = textureLoader.load(
       'static/imgs/DataVis_page/Impact.png'
     );
@@ -84,8 +84,8 @@ function DataVisScene(setScene) {
       transparent: true,
     });
     Impact = new THREE.Mesh(planeImpact, materialImpact);
-    Impact.position.set(1.6, 0, 0.01);
-    scene.add(Impact);
+    Impact.position.set(0.2, 3.1, 0.01);
+    scene.add(Impact);  jkhdfgcewhDataVis
   Impact.cursor = 'pointer';
     Impact.on('click', goImpact);
    Impact.on('touchstart', goImpact);
