@@ -119,6 +119,9 @@ function DataVisScene(setScene) {
     textures['SAN JOSE'] = textureLoader.load(
       'static/imgs/DataVis_page/SanJose.png'
     );
+    textures['OTHER'] = textureLoader.load(
+      'static/imgs/DataVis_page/Other.png'
+    );
   }
 
   function loadColors() {
