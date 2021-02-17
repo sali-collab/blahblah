@@ -117,7 +117,7 @@ function voteScene(setScene, color) {
       transparent: true,
     });
     voteNo = new THREE.Mesh(planevoteNo, materialvoteNo);
-    voteNo.position.set(-1.2, -1.8, 0.01);
+    voteNo.position.set(-1.2, -1.85, 0.01);
     voteNo.pointer = "pointer";
     voteNo.on("click",()=>voteFor("NO_VOTE"));
     voteNo.on("touchstart",()=>voteFor("NO_VOTE"));
