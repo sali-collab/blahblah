@@ -65,13 +65,6 @@ function voteScene(setScene, color) {
     Background.position.set(0, -0.2, 0);
     scene.add(Background);
 
-    var planeMessage = new THREE.PlaneGeometry(578 / 250, 203 / 250);
-    var textureMessage = textureLoader.load('static/imgs/vote_page/Message.png');
-    var materialMessage = new THREE.MeshBasicMaterial({map: textureMessage, transparent: true,});
-    Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(0, -2.2, 0);
-    scene.add(Message);
-
     var planevoteEdu = new THREE.PlaneGeometry(430 / 1350, 381 / 1350);
     var texturevoteEdu = textureLoader.load(
       'static/imgs/vote_page/voteEdu.png'
@@ -124,7 +117,7 @@ function voteScene(setScene, color) {
       transparent: true,
     });
     voteNo = new THREE.Mesh(planevoteNo, materialvoteNo);
-    voteNo.position.set(-1.1, -1, 0.01);
+    voteNo.position.set(-1.2, -1.85, 0.01);
     voteNo.pointer = "pointer";
     voteNo.on("click",()=>voteFor("NO_VOTE"));
     voteNo.on("touchstart",()=>voteFor("NO_VOTE"));
