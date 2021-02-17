@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import { setCallback, getVotes } from '../firebase'; // setCall back incase someone makes a change, need to refresh page 
-import ImpactScene from "./Impact.scene";
+import { setCallback, getVotes } from '../firebase'; // setCall back incase someone makes a change, need to refresh page
+import ImpactScene from './Impact.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -11,21 +11,21 @@ var camera;
 var scene;
 //assets
 
-const constrains = { // where the bubbles can move 
-  xMax: 1.25,
-  xMin: -1,
-  yMax: 3,
-  yMin: -1.25,
+const maxVel = 0.025; // speed
+
+const constrains = {
+  NO_VOTE: { maxX: 1.5, minX: -1.25, maxY: 2.15, minY: 1.55 },
+  EDUCATION: { maxX: 1.5, minX: -1.25, maxY: -0.75, minY: -1.5 },
+  HEALTH: { maxX: 1.5, minX: -1.25, maxY: 1.3, minY: 0.55 },
+  SAFETY: { maxX: 1.5, minX: -1.25, maxY: 0.25, minY: -0.5 },
 };
-const maxVel = 0.025; // speed 
 
 var Background;
 var Impact;
 
-var objects = []; // 3D object, group that is icon + circle 
-var textures = []; // icons 
-var colors = []; // vote 
-var sizes = []; // age 
+var objects = []; // 3D object, group that is icon + circle
+var textures = []; // icons
+var colors = [];
 
 function DataVisScene(setScene) {
   camera = new THREE.PerspectiveCamera(
@@ -42,7 +42,8 @@ function DataVisScene(setScene) {
   initLights();
   initObjects();
 
-  function destroy() { // when change scene have to remove the listeners that you have 
+  function destroy() {
+    // when change scene have to remove the listeners that you have
     window.document.removeEventListener('resize', onWindowResize);
   }
   function onWindowResize() {
@@ -60,7 +61,7 @@ function DataVisScene(setScene) {
   function goImpact() {
     var is = ImpactScene(setScene);
     setScene(is);
-}
+  }
 
   function initObjects() {
     var planeBackground = new THREE.PlaneGeometry(1080 / 300, 1920 / 300);
@@ -85,16 +86,15 @@ function DataVisScene(setScene) {
     });
     Impact = new THREE.Mesh(planeImpact, materialImpact);
     Impact.position.set(0.2, 3.1, 0.01);
-    scene.add(Impact);  
-  Impact.cursor = 'pointer';
+    scene.add(Impact);
+    Impact.cursor = 'pointer';
     Impact.on('click', goImpact);
-   Impact.on('touchstart', goImpact);
+    Impact.on('touchstart', goImpact);
 
     loadTexttures();
     loadColors();
-    loadSize();
     setCallback(refreshObjects); // everytime new person votes or if you make changes in database (firefox)
-    refreshObjects(getVotes()); // showing or dosplaying the votes 
+    refreshObjects(getVotes()); // showing or dosplaying the votes
   }
 
   function loadTexttures() {
@@ -125,25 +125,15 @@ function DataVisScene(setScene) {
   }
 
   function loadColors() {
-    colors['NO_VOTE'] = new THREE.Color(239/255, 41/255, 70/255);
-    colors['EDUCATION'] = new THREE.Color(0, 153/255, 63/255);
-    colors['HEALTH'] = new THREE.Color(127/255, 152/255, 239/255);
-    colors['SAFETY'] = new THREE.Color(247/255, 240/255, 154/255);
-  }
-
-  function loadSize() {
-    sizes[18] = 0.4;
-    sizes[25] = 0.5;
-    sizes[35] = 0.6;
-    sizes[45] = 0.7;
-    sizes[55] = 0.8;
-    sizes[65] = 1;
+    colors[0] = new THREE.Color(239 / 255, 41 / 255, 70 / 255);
+    colors[1] = new THREE.Color(0, 153 / 255, 63 / 255);
+    colors[2] = new THREE.Color(127 / 255, 152 / 255, 239 / 255);
   }
 
   function randomInRange(min, max) {
     const diff = max - min;
-    return Math.random() * diff + min; // a formula 
-    // give me a random number between 2 numbers 
+    return Math.random() * diff + min; // a formula
+    // give me a random number between 2 numbers
   }
 
   function createVote(vote) {
@@ -151,45 +141,55 @@ function DataVisScene(setScene) {
     const age = vote.age;
     const option = vote.vote;
     try {
-      var group = new THREE.Group(); // add different things to one object, we have grouped it 
+      var group = new THREE.Group(); // add different things to one object, we have grouped it
 
       var iconGeometry = new THREE.PlaneGeometry(372 / 1000, 321 / 1000);
       var iconMaterial = new THREE.MeshBasicMaterial({
-        map: textures[from],// icon, grab icon from any of the 7 according to the location chosen 
+        map: textures[from], // icon, grab icon from any of the 7 according to the location chosen
         transparent: true,
       });
       var icon = new THREE.Mesh(iconGeometry, iconMaterial);
       group.add(icon);
 
+      var col = 0;
+      if (age > 35) {
+        col = 1;
+      }
+      if (age > 55) {
+        col = 2;
+      }
+
       var circleGeometry = new THREE.CircleGeometry(0.25, 15);
       var circleMaterial = new THREE.MeshBasicMaterial({
-        color: colors[option], // vote, the colour changed according to the vote choice 
+        color: colors[col], // vote, the colour changed according to the vote choice
       });
       var circle = new THREE.Mesh(circleGeometry, circleMaterial);
       group.add(circle);
-      group.scale.setScalar(sizes[age]); // age 
 
       group.position.set(
-        randomInRange(constrains.xMin, constrains.xMax),
-        randomInRange(constrains.yMin, constrains.yMax),
+        randomInRange(constrains[option].minX, constrains[option].maxX),
+        randomInRange(constrains[option].minY, constrains[option].maxY),
         0
       );
-
-      group.userData = { // variable in 3js to store info that you want 
-        xVel: randomInRange(-maxVel,maxVel),
-        yVel: randomInRange(-maxVel, maxVel), // speed and random 
+      group.scale.setScalar(0.5);
+      group.userData = {
+        // variable in 3js to store info that you want
+        xVel: randomInRange(-maxVel, maxVel),
+        yVel: randomInRange(-maxVel, maxVel), // speed and random
+        option,
       };
       objects.push(group);
       scene.add(group);
-      //info added to the scene + the objects 
+      //info added to the scene + the objects
     } catch (e) {
       console.error(e);
     }
   }
 
   function refreshObjects(votes) {
+    console.log(votes);
     objects.forEach((obj) => {
-      scene.remove(obj); // when someone adds a new vote, remove then add 
+      scene.remove(obj); // when someone adds a new vote, remove then add
     });
     votes.forEach((vote) => {
       createVote(vote);
@@ -198,19 +198,22 @@ function DataVisScene(setScene) {
 
   function update() {
     objects.forEach((obj) => {
-      if(obj.position.x>constrains.xMax){
-        obj.userData.xVel = randomInRange(-maxVel,0);
+      const option = obj.userData.option;
+      if (obj.position.x > constrains[option].maxX) {
+        obj.userData.xVel = randomInRange(-maxVel, 0);
       }
-      if(obj.position.x<constrains.xMin){
-        obj.userData.xVel = randomInRange(0,maxVel);
+      if (obj.position.x < constrains[option].minX) {
+        obj.userData.xVel = randomInRange(0, maxVel);
       }
-      if(obj.position.y>constrains.yMax){
-        obj.userData.yVel = randomInRange(-maxVel,0);
+      if (obj.position.y > constrains[option].maxY) {
+        obj.userData.yVel = randomInRange(-maxVel, 0);
       }
-      if(obj.position.y<constrains.yMin){
-        obj.userData.yVel = randomInRange(0,maxVel);
+      if (obj.position.y < constrains[option].minY) {
+        obj.userData.yVel = randomInRange(0, maxVel);
       }
-      obj.position.add(new THREE.Vector3(obj.userData.xVel,obj.userData.yVel,0));
+      obj.position.add(
+        new THREE.Vector3(obj.userData.xVel, obj.userData.yVel, 0)
+      );
 
       // votes move randomly, with the defined velocity in the space that you have (constrained space).
     });
