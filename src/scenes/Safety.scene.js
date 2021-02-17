@@ -10,7 +10,7 @@ var textureLoader = new THREE.TextureLoader();
 var audioLoader = new THREE.AudioLoader();
 var fontLoader = new THREE.FontLoader();
 
-const floorRadius = 15;
+const floorRadius = 40;
 
 var Back;
 var Vote;
@@ -73,6 +73,7 @@ function Safety(setScene) {
     }
   }
 
+
   function handleOrientation(event) {}
 
   function onKeyDown(event) {
@@ -109,7 +110,6 @@ function Safety(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
-    htmlele.style.display = "none";
     joystick.destroy();
   }
   function onWindowResize() {
@@ -122,6 +122,8 @@ function Safety(setScene) {
     spotLight.position.set(20, 20, 20);
     spotLight.lookAt(0, 0, 0);
     spotLight.castShadow = true;
+    const light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
   }
 
   function stopAll() {
@@ -344,9 +346,14 @@ function Safety(setScene) {
 
   function update() {
     if (ball) {
+      if (joystick._pressed) {
+        direction.x = joystick.deltaX() / 50;
+        direction.z = joystick.deltaY() / 50;
+      }
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
       ball.position.clampLength(0, floorRadius - 1);
+      camera.lookAt(ball.position);
     }
   }
 
