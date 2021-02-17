@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
-import {editData} from "../Data";
+import {editData,getData} from "../Data";
 
-import NameScene from "./Name.scene";
+import glimpsesScene from "./glimpses.scene";
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -13,13 +13,16 @@ var scene;
 //assets 
 
 var Age;
-var avatar;
 var Age18_25;
 var Age25_35;
 var Age35_45;
 var Age45_55;
 var Age55_65;
 var Age65Plus;
+
+var GreenChoice;
+var RedChoice;
+var PinkChoice;
 
 
 
@@ -57,11 +60,27 @@ function Registration3Scene(setScene) {
   
   function setAge(age) {
     editData("age", age);
-    const ns = new NameScene(setScene);
+    const ns = new glimpsesScene(setScene);
     setScene(ns);
   }
 
   function initObjects() {
+    const color = getData("color");
+    var imgUrl = "static/imgs/registration3_page/RedChoice.png";
+    if(color=="GREEN"){
+      imgUrl = "static/imgs/registration3_page/GreenChoice.png";
+    }
+    if(color=="PINK"){
+      imgUrl = "static/imgs/registration3_page/PinkChoice.png";
+    }
+    var planeRedChoice = new THREE.PlaneGeometry(695 / 580, 603 / 580);
+    var textureRedChoice = new THREE.TextureLoader().load(imgUrl);
+    var materialRedChoice = new THREE.MeshBasicMaterial({ map: textureRedChoice , transparent:true});
+    RedChoice = new THREE.Mesh(planeRedChoice, materialRedChoice);
+    RedChoice.position.set(0, 0.2, 0);
+    scene.add(RedChoice);
+
+
    
     var planeAge = new THREE.PlaneGeometry(562 / 300, 68 / 300);
     var textureAge = new THREE.TextureLoader().load('static/imgs/registration3_page/Age.png');
@@ -70,12 +89,6 @@ function Registration3Scene(setScene) {
     Age.position.set(0, -1.65, 0);
     scene.add(Age);
 
-    var planeavatar = new THREE.PlaneGeometry(1717 / 1300, 1747 / 1300);
-    var textureavatar = new THREE.TextureLoader().load('static/imgs/registration3_page/avatar.png');
-    var materialavatar = new THREE.MeshBasicMaterial({ map: textureavatar , transparent:true});
-    avatar = new THREE.Mesh(planeavatar, materialavatar);
-    avatar.position.set(0, 0.2, 0);
-    scene.add(avatar);
 
     
     var planeAge18_25 = new THREE.PlaneGeometry(155/255, 91/255);

@@ -85,7 +85,7 @@ function DataVisScene(setScene) {
     });
     Impact = new THREE.Mesh(planeImpact, materialImpact);
     Impact.position.set(0.2, 3.1, 0.01);
-    scene.add(Impact);  jkhdfgcewhDataVis
+    scene.add(Impact);  
   Impact.cursor = 'pointer';
     Impact.on('click', goImpact);
    Impact.on('touchstart', goImpact);
