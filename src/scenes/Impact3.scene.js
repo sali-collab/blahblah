@@ -48,14 +48,14 @@ function ImpactScene(setScene,color) {
     var texturePolice = new THREE.TextureLoader().load('static/imgs/Impact3_page/Police.png');
     var materialPolice = new THREE.MeshBasicMaterial({ map: texturePolice , transparent:true});
     Police= new THREE.Mesh(planePolice, materialPolice);
-    Police.position.set(-2,-1, 0);
+    Police.position.set(-0.7,-1, 0);
     scene.add(Police); 
 
     var planeBack2School = new THREE.PlaneGeometry(273/300, 389/300);
     var textureBack2School = new THREE.TextureLoader().load('static/imgs/Impact3_page/Back2School.png');
     var materialBack2School = new THREE.MeshBasicMaterial({ map: textureBack2School , transparent:true});
     Back2School= new THREE.Mesh(planeBack2School, materialBack2School);
-    Back2School.position.set(2,03, 0);
+    Back2School.position.set(0.5,2, 0);
     scene.add(Back2School); 
 
    
