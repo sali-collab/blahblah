@@ -1,9 +1,14 @@
 import * as THREE from 'three';
 
+import VirtualJoystick from '../virtualjoystick';
+
 import voteScene from './vote.scene';
 import glimpsesScene from './glimpses.scene';
 
-const audioLoader = new THREE.AudioLoader();
+// Loaders
+var textureLoader = new THREE.TextureLoader();
+var audioLoader = new THREE.AudioLoader();
+var fontLoader = new THREE.FontLoader();
 
 const floorRadius = 15;
 
@@ -16,8 +21,8 @@ function Safety(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
 
-  var audiosLoaded = 0;
   var cubeSound, coneSound, cylinderSound, torousSound, torousKnotSound;
+  var cube, cone, cylinder, torous, torousKnot;
 
   var camera = new THREE.PerspectiveCamera(
     45,
@@ -36,7 +41,23 @@ function Safety(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+
+  
+  const htmlele = document.getElementById("joycontainer");
+  htmlele.style.display = "contents";
+  htmlele.style.position = "absolute";
+  var joystick = new VirtualJoystick({
+    container: htmlele,
+    mouseSupport: true,
+    stationaryBase: true,
+    baseX: window.innerWidth / 2,
+    baseY: window.innerHeight - 150,
+    limitStickTravel: true,
+    stickRadius: 50,
+  });
+
   initLights();
+  initObjects();
   loadAudios();
 
 
@@ -48,12 +69,8 @@ function Safety(setScene) {
       setTimeout(() => {
         scene.add(Message);
         scene.add(readyToVote);
-      }, 1000);
+      }, 250);
     }
-  }
-  function voteNow() {
-    var vs = voteScene(setScene);
-    setScene(vs);
   }
 
   function handleOrientation(event) {}
@@ -92,6 +109,8 @@ function Safety(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
+    htmlele.style.display = "none";
+    joystick.destroy();
   }
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -113,7 +132,7 @@ function Safety(setScene) {
     torousKnotSound.stop();
   }
 
-  function click() {
+  function voteNow() {
     stopAll();
     var ns = voteScene(setScene);
     setScene(ns);
@@ -131,63 +150,58 @@ function Safety(setScene) {
     return new THREE.Vector3(x, yPos, y);
   }
 
-  function audioLoaded() {
-    ++audiosLoaded;
-    console.log(audiosLoaded);
-    if (audiosLoaded == 5) {
-      initObjects();
-    }
-  }
+
 
   function loadAudios() {
-    const refDistance = 1;
+    const refDistance = 0.5;
     // cube sound
     cubeSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Safety/audio1.ogg', function (buffer) {
+    audioLoader.load('static/audios/Safety/audio1.mp3', function (buffer) {
       cubeSound.setBuffer(buffer);
-      cubeSound.setRefDistance(refDistance);
       cubeSound.setLoop(true);
+      cubeSound.setRefDistance(refDistance);
       cubeSound.play();
-      audioLoaded();
-    });
-    // cone sound
-    coneSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Safety/audio2.ogg', function (buffer) {
-      coneSound.setBuffer(buffer);
-      coneSound.setRefDistance(refDistance);
-      coneSound.setLoop(true);
-      coneSound.play();
-      audioLoaded();
+      cube.add(cubeSound);
     });
 
-    // cylinder sound
+    // cone sound
+    coneSound = new THREE.PositionalAudio(listener);
+    audioLoader.load('static/audios/Safety/audio2.mp3', function (buffer) {
+      coneSound.setBuffer(buffer);
+      coneSound.setLoop(true);
+      coneSound.setRefDistance(refDistance);
+      coneSound.play();
+      cone.add(coneSound);
+    });
+
+    // Cylinder sound
     cylinderSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Safety/audio3.ogg', function (buffer) {
+    audioLoader.load('static/audios/Safety/audio3.mp3', function (buffer) {
       cylinderSound.setBuffer(buffer);
-      cylinderSound.setRefDistance(refDistance);
       cylinderSound.setLoop(true);
+      cylinderSound.setRefDistance(refDistance);
       cylinderSound.play();
-      audioLoaded();
+      cylinder.add(cylinderSound);
     });
 
     // Torous sound
     torousSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Safety/audio4.ogg', function (buffer) {
+    audioLoader.load('static/audios/Safety/audio4.mp3', function (buffer) {
       torousSound.setBuffer(buffer);
-      torousSound.setRefDistance(refDistance);
       torousSound.setLoop(true);
+      torousSound.setRefDistance(refDistance);
       torousSound.play();
-      audioLoaded();
+      torous.add(torousSound);
     });
 
-    // TorousKnot sound
+    // Torous sound
     torousKnotSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('static/audios/Safety/audio5.ogg', function (buffer) {
+    audioLoader.load('static/audios/Safety/audio5.mp3', function (buffer) {
       torousKnotSound.setBuffer(buffer);
-      torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.setLoop(true);
+      torousKnotSound.setRefDistance(refDistance);
       torousKnotSound.play();
-      audioLoaded();
+      torousKnot.add(torousKnotSound);
     });
   }
 
@@ -265,11 +279,10 @@ function Safety(setScene) {
     var cubeMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(1, 0, 0),
     });
-    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
     cube.receiveShadow = true;
     cube.position.copy(getPositionFromAngle(0));
-    cube.add(cubeSound);
     scene.add(cube);
 
     // Cone code
@@ -277,48 +290,44 @@ function Safety(setScene) {
     var coneMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 1, 0),
     });
-    var cone = new THREE.Mesh(coneGeometry, coneMaterial);
+    cone = new THREE.Mesh(coneGeometry, coneMaterial);
     cone.castShadow = true;
     cone.receiveShadow = true;
     cone.position.copy(getPositionFromAngle(Math.PI * 0.4));
     scene.add(cone);
-    cone.add(coneSound);
 
     // Cynder code
     const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
     const cylinderMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 1),
     });
-    const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
     scene.add(cylinder);
-    cylinder.add(cylinderSound);
 
     // Torous
     const torousGeometry = new THREE.TorusGeometry(1, 0.5, 16, 100);
     const torousMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0.5, 0.5, 0),
     });
-    const torus = new THREE.Mesh(torousGeometry, torousMaterial);
-    torus.castShadow = true;
-    torus.receiveShadow = true;
-    torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
-    scene.add(torus);
-    torus.add(torousSound);
+    torous = new THREE.Mesh(torousGeometry, torousMaterial);
+    torous.castShadow = true;
+    torous.receiveShadow = true;
+    torous.position.copy(getPositionFromAngle(Math.PI * 1.2));
+    scene.add(torous);
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
     const torusKnotMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0, 0.5, 0.5),
     });
-    const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
-    torusKnot.castShadow = true;
-    torusKnot.receiveShadow = true;
-    torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
-    scene.add(torusKnot);
-    torusKnot.add(torousKnotSound);
+    torousKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+    torousKnot.castShadow = true;
+    torousKnot.receiveShadow = true;
+    torousKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
+    scene.add(torousKnot);
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);

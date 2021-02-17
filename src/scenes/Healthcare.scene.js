@@ -297,7 +297,7 @@ function Healthcare(setScene) {
     const cylinderMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 1),
     });
-    const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
     cylinder.position.copy(getPositionFromAngle(Math.PI * 0.8));
@@ -308,22 +308,22 @@ function Healthcare(setScene) {
     const torousMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0.5, 0.5, 0),
     });
-    const torus = new THREE.Mesh(torousGeometry, torousMaterial);
-    torus.castShadow = true;
-    torus.receiveShadow = true;
-    torus.position.copy(getPositionFromAngle(Math.PI * 1.2));
-    scene.add(torus);
+    torous = new THREE.Mesh(torousGeometry, torousMaterial);
+    torous.castShadow = true;
+    torous.receiveShadow = true;
+    torous.position.copy(getPositionFromAngle(Math.PI * 1.2));
+    scene.add(torous);
 
     // Torousknot
     const torusKnotGeometry = new THREE.IcosahedronGeometry(1, 0);
     const torusKnotMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color(0, 0.5, 0.5),
     });
-    const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
-    torusKnot.castShadow = true;
-    torusKnot.receiveShadow = true;
-    torusKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
-    scene.add(torusKnot);
+    torousKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+    torousKnot.castShadow = true;
+    torousKnot.receiveShadow = true;
+    torousKnot.position.copy(getPositionFromAngle(Math.PI * 1.6));
+    scene.add(torousKnot);
 
     // Ball code
     const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
