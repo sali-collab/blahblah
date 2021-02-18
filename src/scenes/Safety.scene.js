@@ -17,6 +17,14 @@ var Vote;
 var Message;
 var readyToVote;
 
+var tiltValues = {
+  gamma: 0,
+  beta: 0,
+};
+var tiltAvailable = false;
+var joystick = false;
+var htmlele;
+
 function Safety(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
@@ -42,24 +50,44 @@ function Safety(setScene) {
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
 
-  
-  const htmlele = document.getElementById("joycontainer");
-  htmlele.style.display = "contents";
-  htmlele.style.position = "absolute";
-  var joystick = new VirtualJoystick({
-    container: htmlele,
-    mouseSupport: true,
-    stationaryBase: true,
-    baseX: window.innerWidth / 2,
-    baseY: window.innerHeight - 150,
-    limitStickTravel: true,
-    stickRadius: 50,
-  });
+  window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener('keydown', onKeyDown);
+  window.addEventListener('keyup', onKeyUp);
+  window.addEventListener('deviceorientation', handleOrientation, true);
+  setTimeout(() => addJoystick(), 1000);
+
+  function addJoystick() {
+    if (!tiltAvailable) {
+      htmlele = document.getElementById('joycontainer');
+      htmlele.style.display = 'contents';
+      htmlele.style.position = 'absolute';
+      joystick = new VirtualJoystick({
+        container: htmlele,
+        mouseSupport: true,
+        stationaryBase: true,
+        baseX: window.innerWidth / 2,
+        baseY: window.innerHeight - 150,
+        limitStickTravel: true,
+        stickRadius: 50,
+      });
+    }
+  }
 
   initLights();
   initObjects();
   loadAudios();
 
+  function handleOrientation(event) {
+    if (event.alpha || event.beta || event.gamma) {
+      tiltAvailable = true;
+      tiltValues.gamma = event.gamma / 90;
+      tiltValues.beta = event.beta / 180;
+      if (tiltValues.gamma > 1) tiltValues.gamma = 1;
+      if (tiltValues.gamma < -1) tiltValues.gamma = -1;
+      if (tiltValues.beta > 1) tiltValues.beta = 1;
+      if (tiltValues.beta < -1) tiltValues.beta = -1;
+    }
+  }
 
   var added = false; // objects not added before the mouse
   function overTheVote(envet) {
@@ -72,7 +100,6 @@ function Safety(setScene) {
       }, 250);
     }
   }
-
 
   function handleOrientation(event) {}
 
@@ -110,12 +137,17 @@ function Safety(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
-    joystick.destroy();
+    if (!tiltAvailable) {
+      htmlele.style.display = 'none';
+      joystick.destroy();
+    }
   }
+
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
+
   function initLights() {
     var spotLight = new THREE.SpotLight();
     scene.add(spotLight);
@@ -151,8 +183,6 @@ function Safety(setScene) {
     const y = Math.cos(angle) * (floorRadius - 2);
     return new THREE.Vector3(x, yPos, y);
   }
-
-
 
   function loadAudios() {
     const refDistance = 0.5;
@@ -245,10 +275,9 @@ function Safety(setScene) {
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
     readyToVote.position.set(6, 16, 0);
-    readyToVote.on('mouseover',voteNow);
+    readyToVote.on('mouseover', voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
-  
 
     var planeBack = new THREE.PlaneGeometry(116 / 15, 63 / 15);
     var textureBack = new THREE.TextureLoader().load(
@@ -344,16 +373,65 @@ function Safety(setScene) {
     scene.add(ball);
   }
 
+  function updateBasic(obj) {
+    obj.position.copy(camera.position);
+    obj.rotation.copy(camera.rotation);
+    obj.updateMatrix();
+    obj.translateZ(-80);
+    obj.translateY(30);
+  }
+
+  function updatePositionUI() {
+    updateBasic(Vote);
+    Vote.translateX(12);
+
+    updateBasic(Message);
+    Message.translateX(12);
+    Message.translateY(-4.5);
+
+    updateBasic(readyToVote);
+    readyToVote.translateX(12);
+    readyToVote.translateY(-7.5);
+
+    updateBasic(Back);
+    Back.translateX(-12);
+  }
+
+  function updateCameraPosition() {
+    var rotZ = Math.cos(ball.rotation.y);
+    var rotX = Math.sin(ball.rotation.y);
+    var distance = 15;
+    camera.position.x = ball.position.x - distance * rotX;
+    camera.position.y = ball.position.y + 5;
+    camera.position.z = ball.position.z - distance * rotZ;
+    camera.lookAt(ball.position);
+  }
+
+  function updatePlayerPosition() {
+    ball.rotation.y += direction.x;
+    if (direction.y > 0.1 || direction.y < -0.1) {
+      const y = Math.cos(ball.rotation.y) * direction.y * 0.5;
+      const x = Math.sin(ball.rotation.y) * direction.y * 0.5;
+      ball.position.x += x;
+      ball.position.z += y;
+    }
+  }
+
   function update() {
     if (ball) {
-      if (joystick._pressed) {
-        direction.x = joystick.deltaX() / 50;
-        direction.z = joystick.deltaY() / 50;
+      direction.x = 0;
+      direction.y = 0;
+      if (joystick && joystick._pressed) {
+        direction.x = -joystick.deltaX() / 1000;
+        direction.y = -joystick.deltaY() / 100; // increase number to make it less sensitive
       }
-      const movement = direction.multiplyScalar(0.25);
-      ball.position.add(movement);
-      ball.position.clampLength(0, floorRadius - 1);
-      camera.lookAt(ball.position);
+      if (tiltAvailable) {
+        direction.x = tiltValues.gamma * -0.1;
+        direction.y = tiltValues.beta * -3;
+      }
+      updatePlayerPosition();
+      updateCameraPosition();
+      updatePositionUI();
     }
   }
 
