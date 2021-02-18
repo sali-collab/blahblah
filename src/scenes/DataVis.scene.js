@@ -22,6 +22,7 @@ const constrains = {
 
 var Background;
 var Impact;
+//var Highlight;
 
 var objects = []; // 3D object, group that is icon + circle
 var textures = []; // icons
@@ -75,6 +76,18 @@ function DataVisScene(setScene) {
     Background = new THREE.Mesh(planeBackground, materialBackground);
     Background.position.set(0, 0, 0);
     scene.add(Background);
+
+   /*var planeHighlight = new THREE.PlaneGeometry(342 / 300, 91 / 300);
+    var textureHighlight = textureLoader.load(
+      'static/imgs/DataVis_page/Highlight.png'
+    );
+    var materialHighlight = new THREE.MeshBasicMaterial({
+      map: textureHighlight,
+      transparent: true,
+    });
+   Highlight= new THREE.Mesh(planeHighlight, materialHighlight);
+   Highlight.position.set(0.2, 3.1, 0);
+    scene.add(Highlight); */
 
     var planeImpact = new THREE.PlaneGeometry(342 / 300, 91 / 300);
     var textureImpact = textureLoader.load(
