@@ -229,7 +229,7 @@ function Healthcare(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 9, 63 / 9);
+    var planeVote = new THREE.PlaneGeometry(113 / 90, 63 / 90);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Vote.png'
     );
@@ -242,7 +242,7 @@ function Healthcare(setScene) {
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
-    var planeMessage = new THREE.PlaneGeometry(152 / 8, 73 / 8);
+    var planeMessage = new THREE.PlaneGeometry(152 / 60, 73 / 60);
     var textureMessage = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Message.png'
     );
@@ -252,7 +252,7 @@ function Healthcare(setScene) {
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
 
-    var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 400, 191 / 400);
     var texturereadyToVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/readyToVote.png'
     );
@@ -264,7 +264,7 @@ function Healthcare(setScene) {
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
-    var planeBack = new THREE.PlaneGeometry(116 / 9, 63 / 9);
+    var planeBack = new THREE.PlaneGeometry(116 / 90, 63 / 90);
     var textureBack = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Back.png'
     );
@@ -367,24 +367,24 @@ function Healthcare(setScene) {
     obj.position.copy(camera.position);
     obj.rotation.copy(camera.rotation);
     obj.updateMatrix();
-    obj.translateZ(-80);
-    obj.translateY(30);
+    obj.translateZ(-10);
+    obj.translateY(3.75);
   }
 
   function updatePositionUI() {
     updateBasic(Vote);
-    Vote.translateX(12);
+    Vote.translateX(1.5);
 
     updateBasic(Message);
-    Message.translateX(12);
-    Message.translateY(-10);
+    Message.translateX(1);
+    Message.translateY(-0.9);
 
     updateBasic(readyToVote);
-    readyToVote.translateX(12);
-    readyToVote.translateY(-4.5);
+    readyToVote.translateX(0.8);
+    readyToVote.translateY(-1.75);
 
     updateBasic(Back);
-    Back.translateX(-12);
+    Back.translateX(-1.5);
   }
 
   function updateCameraPosition() {
