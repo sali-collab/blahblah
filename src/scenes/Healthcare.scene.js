@@ -242,7 +242,7 @@ function Healthcare(setScene) {
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
-    var planeMessage = new THREE.PlaneGeometry(152 / 20, 73 / 20);
+    var planeMessage = new THREE.PlaneGeometry(152 / 10, 73 / 10);
     var textureMessage = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Message.png'
     );
@@ -266,7 +266,7 @@ function Healthcare(setScene) {
 
     var planeBack = new THREE.PlaneGeometry(116 / 9, 63 / 9);
     var textureBack = new THREE.TextureLoader().load(
-      'static/imgs/Education_page/Back.png'
+      'static/imgs/Healthcare_page/Back.png'
     );
     var materialBack = new THREE.MeshBasicMaterial({
       map: textureBack,
