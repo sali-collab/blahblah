@@ -16,6 +16,13 @@ var Vote;
 var Message;
 var readyToVote;
 
+var tiltValues = {
+  gamma: 0,
+  beta: 0,
+};
+var tiltAvailable = false;
+var joystick = false;
+
 function Education(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
@@ -40,25 +47,40 @@ function Education(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+  setTimeout(() => addJoystick(), 1000);
 
-  const htmlele = document.getElementById("joycontainer");
-  htmlele.style.display = "contents";
-  htmlele.style.position = "absolute";
-  var joystick = new VirtualJoystick({
-    container: htmlele,
-    mouseSupport: true,
-    stationaryBase: true,
-    baseX: window.innerWidth / 2,
-    baseY: window.innerHeight - 150,
-    limitStickTravel: true,
-    stickRadius: 50,
-  });
+  function addJoystick() {
+    if (!tiltAvailable) {
+      const htmlele = document.getElementById('joycontainer');
+      htmlele.style.display = 'contents';
+      htmlele.style.position = 'absolute';
+      joystick = new VirtualJoystick({
+        container: htmlele,
+        mouseSupport: true,
+        stationaryBase: true,
+        baseX: window.innerWidth / 2,
+        baseY: window.innerHeight - 150,
+        limitStickTravel: true,
+        stickRadius: 50,
+      });
+    }
+  }
 
   initLights();
   initObjects();
   loadAudios();
 
-  function handleOrientation(event) {}
+  function handleOrientation(event) {
+    if (event.alpha || event.beta || event.gamma) {
+      tiltAvailable = true;
+      tiltValues.gamma = event.gamma / 90;
+      tiltValues.beta = event.beta / 180;
+      if (tiltValues.gamma > 1) tiltValues.gamma = 1;
+      if (tiltValues.gamma < -1) tiltValues.gamma = -1;
+      if (tiltValues.beta > 1) tiltValues.beta = 1;
+      if (tiltValues.beta < -1) tiltValues.beta = -1;
+    }
+  }
 
   var added = false; // objects not added before the mouse
   function overTheVote(envet) {
@@ -106,7 +128,7 @@ function Education(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
-    htmlele.style.display = "none";
+    htmlele.style.display = 'none';
     joystick.destroy();
   }
   function onWindowResize() {
@@ -340,9 +362,13 @@ function Education(setScene) {
 
   function update() {
     if (ball) {
-      if (joystick._pressed) {
+      if (joystick && joystick._pressed) {
         direction.x = joystick.deltaX() / 50;
         direction.z = joystick.deltaY() / 50;
+      }
+      if (tiltAvailable) {
+        direction.x = tiltValues.gamma * 3;
+        direction.z = tiltValues.beta * 3;
       }
       const movement = direction.multiplyScalar(0.25);
       ball.position.add(movement);
