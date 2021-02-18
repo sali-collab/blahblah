@@ -22,6 +22,7 @@ var tiltValues = {
 };
 var tiltAvailable = false;
 var joystick = false;
+var htmlele;
 
 function Education(setScene) {
   var direction = new THREE.Vector3();
@@ -49,7 +50,7 @@ function Education(setScene) {
 
   function addJoystick() {
     if (!tiltAvailable) {
-      const htmlele = document.getElementById('joycontainer');
+      htmlele = document.getElementById('joycontainer');
       htmlele.style.display = 'contents';
       htmlele.style.position = 'absolute';
       joystick = new VirtualJoystick({
@@ -126,8 +127,10 @@ function Education(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
-    htmlele.style.display = 'none';
-    joystick.destroy();
+    if (!tiltAvailable) {
+      htmlele.style.display = 'none';
+      joystick.destroy();
+    }
   }
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -230,12 +233,10 @@ function Education(setScene) {
     var materialVote = new THREE.MeshBasicMaterial({
       map: textureVote,
       transparent: true,
+      side: THREE.DoubleSide,
     });
     Vote = new THREE.Mesh(planeVote, materialVote);
-    Vote.position.set(5, 23, 0);
-    Vote.lookAt(camera.position);
     scene.add(Vote);
-    Vote.on('mouseover', overTheVote);
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
@@ -248,7 +249,6 @@ function Education(setScene) {
       transparent: true,
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(6, 19, 1);
 
     var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
     var texturereadyToVote = new THREE.TextureLoader().load(
@@ -259,8 +259,6 @@ function Education(setScene) {
       transparent: true,
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
-    readyToVote.position.set(6, 16, 1);
-    readyToVote.on('mouseover', voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
@@ -273,8 +271,6 @@ function Education(setScene) {
       transparent: true,
     });
     Back = new THREE.Mesh(planeBack, materialBack);
-    Back.position.set(-8, 23, 0);
-    Back.lookAt(camera.position);
     scene.add(Back);
     Back.cursor = 'pointer';
     Back.on('click', clickBk);
@@ -346,7 +342,7 @@ function Education(setScene) {
     scene.add(torousKnot);
 
     // Ball code
-    const ballGeometry = new THREE.BoxGeometry( 2, 1, 1 );//new THREE.SphereGeometry(0.5, 32, 32);
+    const ballGeometry = new THREE.BoxGeometry(2, 1, 1); //new THREE.SphereGeometry(0.5, 32, 32);
     const ballMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 48),
     });
@@ -356,6 +352,30 @@ function Education(setScene) {
     ball.position.set(0, 0.5, 0);
     ball.add(listener); // add the listener to the ball
     scene.add(ball);
+  }
+
+  function updateBasic(obj) {
+    obj.position.copy(camera.position);
+    obj.rotation.copy(camera.rotation);
+    obj.updateMatrix();
+    obj.translateZ(-80);
+    obj.translateY(30);
+  }
+
+  function updatePositionUI() {
+    updateBasic(Vote);
+    Vote.translateX(12);
+
+    updateBasic(Message);
+    Message.translateX(12);
+    Message.translateY(-4.5);
+
+    updateBasic(readyToVote);
+    readyToVote.translateX(12);
+    readyToVote.translateY(-7.5);
+
+    updateBasic(Back);
+    Back.translateX(-12);
   }
 
   function updateCameraPosition() {
@@ -387,11 +407,12 @@ function Education(setScene) {
         direction.y = -joystick.deltaY() / 100;  // increase number to make it less sensitive
       }
       if (tiltAvailable) {
-        direction.x = tiltValues.gamma * 3;
-        direction.y = tiltValues.beta * 3;
+        direction.x = tiltValues.gamma * -0.1;
+        direction.y = tiltValues.beta * -3;
       }
       updatePlayerPosition();
       updateCameraPosition();
+      updatePositionUI();
     }
   }
 
