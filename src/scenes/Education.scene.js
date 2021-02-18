@@ -383,8 +383,8 @@ function Education(setScene) {
       direction.x = 0;
       direction.y = 0;
       if (joystick && joystick._pressed) {
-        direction.x = -joystick.deltaX() / 500;
-        direction.y = -joystick.deltaY() / 50;
+        direction.x = -joystick.deltaX() / 1000;
+        direction.y = -joystick.deltaY() / 100;  // increase number to make it less sensitive
       }
       if (tiltAvailable) {
         direction.x = tiltValues.gamma * 3;
