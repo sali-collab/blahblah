@@ -132,10 +132,12 @@ function Education(setScene) {
       joystick.destroy();
     }
   }
+
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
+  
   function initLights() {
     var spotLight = new THREE.SpotLight();
     scene.add(spotLight);

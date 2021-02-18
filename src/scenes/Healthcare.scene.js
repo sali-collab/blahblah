@@ -17,6 +17,14 @@ var Message;
 var readyToVote;
 var Floor;
 
+var tiltValues = {
+  gamma: 0,
+  beta: 0,
+};
+var tiltAvailable = false;
+var joystick = false;
+var htmlele;
+
 function Healthcare(setScene) {
   var direction = new THREE.Vector3();
   var listener = new THREE.AudioListener();
@@ -30,8 +38,6 @@ function Healthcare(setScene) {
     1,
     10000
   );
-  camera.position.set(0, 45, 45);
-  camera.lookAt(0, 0, 0);
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0, 0, 0);
 
@@ -41,19 +47,24 @@ function Healthcare(setScene) {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('deviceorientation', handleOrientation, true);
+  setTimeout(() => addJoystick(), 1000);
 
-  const htmlele = document.getElementById('joycontainer');
-  htmlele.style.display = 'contents';
-  htmlele.style.position = 'absolute';
-  var joystick = new VirtualJoystick({
-    container: htmlele,
-    mouseSupport: true,
-    stationaryBase: true,
-    baseX: window.innerWidth / 2,
-    baseY: window.innerHeight - 150,
-    limitStickTravel: true,
-    stickRadius: 50,
-  });
+  function addJoystick() {
+    if (!tiltAvailable) {
+      htmlele = document.getElementById('joycontainer');
+      htmlele.style.display = 'contents';
+      htmlele.style.position = 'absolute';
+      joystick = new VirtualJoystick({
+        container: htmlele,
+        mouseSupport: true,
+        stationaryBase: true,
+        baseX: window.innerWidth / 2,
+        baseY: window.innerHeight - 150,
+        limitStickTravel: true,
+        stickRadius: 50,
+      });
+    }
+  }
 
   initLights();
   initObjects();
@@ -71,7 +82,17 @@ function Healthcare(setScene) {
     }
   }
 
-  function handleOrientation(event) {}
+  function handleOrientation(event) {
+    if (event.alpha || event.beta || event.gamma) {
+      tiltAvailable = true;
+      tiltValues.gamma = event.gamma / 90;
+      tiltValues.beta = event.beta / 180;
+      if (tiltValues.gamma > 1) tiltValues.gamma = 1;
+      if (tiltValues.gamma < -1) tiltValues.gamma = -1;
+      if (tiltValues.beta > 1) tiltValues.beta = 1;
+      if (tiltValues.beta < -1) tiltValues.beta = -1;
+    }
+  }
 
   function onKeyDown(event) {
     var code = event.code;
@@ -107,12 +128,17 @@ function Healthcare(setScene) {
 
   function destroy() {
     window.removeEventListener('resize', onWindowResize);
-    joystick.destroy();
+    if (!tiltAvailable) {
+      htmlele.style.display = 'none';
+      joystick.destroy();
+    }
   }
+
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
+
   function initLights() {
     var spotLight = new THREE.SpotLight();
     scene.add(spotLight);
@@ -212,10 +238,7 @@ function Healthcare(setScene) {
       transparent: true,
     });
     Vote = new THREE.Mesh(planeVote, materialVote);
-    Vote.position.set(5, 23, 0);
-    Vote.lookAt(camera.position);
     scene.add(Vote);
-    Vote.on('mouseover', overTheVote);
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
@@ -228,7 +251,6 @@ function Healthcare(setScene) {
       transparent: true,
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(6, 18, 0);
 
     var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
     var texturereadyToVote = new THREE.TextureLoader().load(
@@ -239,8 +261,6 @@ function Healthcare(setScene) {
       transparent: true,
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
-    readyToVote.position.set(6, 15, 0);
-    readyToVote.on('mouseover', voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
@@ -253,25 +273,26 @@ function Healthcare(setScene) {
       transparent: true,
     });
     Back = new THREE.Mesh(planeBack, materialBack);
-    Back.position.set(-8, 23, 0);
-    Back.lookAt(camera.position);
     scene.add(Back);
     Back.cursor = 'pointer';
     Back.on('click', clickBk);
     Back.on('touchstart', clickBk);
 
     // Floor code
- 
 
-    var planeFloor = new THREE.PlaneGeometry(512/1, 512/1);
-    var textureFloor = new THREE.TextureLoader().load('static/imgs/Healthcare_page/Floor.png');
-    var materialFloor = new THREE.MeshBasicMaterial({map: textureFloor, transparent: true,});
+    var planeFloor = new THREE.PlaneGeometry(512 / 1, 512 / 1);
+    var textureFloor = new THREE.TextureLoader().load(
+      'static/imgs/Healthcare_page/Floor.png'
+    );
+    var materialFloor = new THREE.MeshBasicMaterial({
+      map: textureFloor,
+      transparent: true,
+    });
     Floor = new THREE.Mesh(planeFloor, materialFloor);
-   
+
     Floor.rotateX(-Math.PI / 2);
     Floor.receiveShadow = true;
     scene.add(Floor);
- 
 
     // Cube code
     var cubeGeometry = new THREE.BoxGeometry(7, 7, 7);
@@ -330,7 +351,7 @@ function Healthcare(setScene) {
     scene.add(torousKnot);
 
     // Ball code
-    const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const ballGeometry = new THREE.BoxGeometry(2, 1, 1);
     const ballMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 48),
     });
@@ -342,19 +363,67 @@ function Healthcare(setScene) {
     scene.add(ball);
   }
 
-  function update() {
-    if (ball) {
-      if (joystick._pressed) {
-        direction.x = joystick.deltaX() / 50;
-        direction.z = joystick.deltaY() / 50;
-      }
-      const movement = direction.multiplyScalar(0.25);
-      ball.position.add(movement);
-      ball.position.clampLength(0, floorRadius - 1);
-      camera.lookAt(ball.position);
+  function updateBasic(obj) {
+    obj.position.copy(camera.position);
+    obj.rotation.copy(camera.rotation);
+    obj.updateMatrix();
+    obj.translateZ(-80);
+    obj.translateY(30);
+  }
+
+  function updatePositionUI() {
+    updateBasic(Vote);
+    Vote.translateX(12);
+
+    updateBasic(Message);
+    Message.translateX(12);
+    Message.translateY(-4.5);
+
+    updateBasic(readyToVote);
+    readyToVote.translateX(12);
+    readyToVote.translateY(-7.5);
+
+    updateBasic(Back);
+    Back.translateX(-12);
+  }
+
+  function updateCameraPosition() {
+    var rotZ = Math.cos(ball.rotation.y);
+    var rotX = Math.sin(ball.rotation.y);
+    var distance = 15;
+    camera.position.x = ball.position.x - distance * rotX;
+    camera.position.y = ball.position.y + 5;
+    camera.position.z = ball.position.z - distance * rotZ;
+    camera.lookAt(ball.position);
+  }
+
+  function updatePlayerPosition() {
+    ball.rotation.y += direction.x;
+    if (direction.y > 0.1 || direction.y < -0.1) {
+      const y = Math.cos(ball.rotation.y) * direction.y * 0.5;
+      const x = Math.sin(ball.rotation.y) * direction.y * 0.5;
+      ball.position.x += x;
+      ball.position.z += y;
     }
   }
 
+  function update() {
+    if (ball) {
+      direction.x = 0;
+      direction.y = 0;
+      if (joystick && joystick._pressed) {
+        direction.x = -joystick.deltaX() / 1000;
+        direction.y = -joystick.deltaY() / 100; // increase number to make it less sensitive
+      }
+      if (tiltAvailable) {
+        direction.x = tiltValues.gamma * -0.1;
+        direction.y = tiltValues.beta * -3;
+      }
+      updatePlayerPosition();
+      updateCameraPosition();
+      updatePositionUI();
+    }
+  }
   return {
     scene,
     camera,
