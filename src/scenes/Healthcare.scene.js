@@ -10,11 +10,12 @@ var textureLoader = new THREE.TextureLoader();
 var audioLoader = new THREE.AudioLoader();
 var fontLoader = new THREE.FontLoader();
 
-const floorRadius = 40;
+const floorRadius = 60;
 var Back;
 var Vote;
 var Message;
 var readyToVote;
+var Floor;
 
 function Healthcare(setScene) {
   var direction = new THREE.Vector3();
@@ -260,14 +261,17 @@ function Healthcare(setScene) {
     Back.on('touchstart', clickBk);
 
     // Floor code
-    var floorGeometry = new THREE.CircleGeometry(floorRadius, 32);
-    var floorMaterial = new THREE.MeshLambertMaterial({
-      color: new THREE.Color(0.2, 0.2, 0.2),
-    });
-    var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.receiveShadow = true;
-    floor.rotateX(-Math.PI / 2);
-    scene.add(floor);
+ 
+
+    var planeFloor = new THREE.PlaneGeometry(512/1, 512/1);
+    var textureFloor = new THREE.TextureLoader().load('static/imgs/Healthcare_page/Floor.png');
+    var materialFloor = new THREE.MeshBasicMaterial({map: textureFloor, transparent: true,});
+    Floor = new THREE.Mesh(planeFloor, materialFloor);
+   
+    Floor.rotateX(-Math.PI / 2);
+    Floor.receiveShadow = true;
+    scene.add(Floor);
+ 
 
     // Cube code
     var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
