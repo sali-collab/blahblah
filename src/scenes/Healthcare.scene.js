@@ -10,7 +10,7 @@ var textureLoader = new THREE.TextureLoader();
 var audioLoader = new THREE.AudioLoader();
 var fontLoader = new THREE.FontLoader();
 
-const floorRadius = 60;
+const floorRadius = 40;
 var Back;
 var Vote;
 var Message;
