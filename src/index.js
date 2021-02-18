@@ -3,7 +3,7 @@ import { WEBGL } from './webgl'; // if browser is compatible to 3js
 import { Interaction } from 'three.interaction'; // for clicks and stuff on 3js
 import { initDatabase } from './firebase';
 
-import voteScene from './scenes/vote.scene';
+import titleScene from './scenes/title.scene';
 
 if (WEBGL.isWebGLAvailable()) {
   var renderer;
@@ -30,7 +30,7 @@ if (WEBGL.isWebGLAvailable()) {
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('touchmove', preventBehavior, { passive: false });
-    var firstScene = voteScene(setScene);
+    var firstScene = titleScene(setScene);
     setScene(firstScene);
   }
 

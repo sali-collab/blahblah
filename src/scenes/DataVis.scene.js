@@ -125,9 +125,12 @@ function DataVisScene(setScene) {
   }
 
   function loadColors() {
-    colors[0] = new THREE.Color(239 / 255, 41 / 255, 70 / 255);
-    colors[1] = new THREE.Color(0, 153 / 255, 63 / 255);
-    colors[2] = new THREE.Color(127 / 255, 152 / 255, 239 / 255);
+    colors[0] = new THREE.Color(172 / 255, 238 / 255, 180 / 255);
+    colors[1] = new THREE.Color(145/255, 233/255, 155/255);
+    colors[2] = new THREE.Color(118 / 255, 228 / 255, 130 / 255);
+    colors[3] = new THREE.Color(3 / 255, 216 / 255, 150 / 255);
+    colors[4] = new THREE.Color(2/255, 186 / 255, 132 / 255);
+    colors[5] = new THREE.Color(3 / 255, 160 / 255, 117 / 255);
   }
 
   function randomInRange(min, max) {
@@ -152,11 +155,21 @@ function DataVisScene(setScene) {
       group.add(icon);
 
       var col = 0;
-      if (age > 35) {
+      if (age > 25) {
         col = 1;
       }
-      if (age > 55) {
+      if (age > 35) {
         col = 2;
+      }
+
+      if (age > 45) {
+        col = 3;
+      }
+      if (age > 55) {
+        col = 4;
+      }
+      if (age > 65) {
+        col = 5;
       }
 
       var circleGeometry = new THREE.CircleGeometry(0.25, 15);
