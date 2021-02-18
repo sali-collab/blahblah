@@ -36,8 +36,6 @@ function Education(setScene) {
     1,
     10000
   );
-  camera.position.set(0, 45, 45);
-  camera.lookAt(0, 0, 0);
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0, 0, 0);
 
@@ -348,7 +346,7 @@ function Education(setScene) {
     scene.add(torousKnot);
 
     // Ball code
-    const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const ballGeometry = new THREE.BoxGeometry( 2, 1, 1 );//new THREE.SphereGeometry(0.5, 32, 32);
     const ballMaterial = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0, 0, 48),
     });
@@ -360,20 +358,40 @@ function Education(setScene) {
     scene.add(ball);
   }
 
+  function updateCameraPosition() {
+    var rotZ = Math.cos(ball.rotation.y);
+    var rotX = Math.sin(ball.rotation.y);
+    var distance = 15;
+    camera.position.x = ball.position.x - distance * rotX;
+    camera.position.y = ball.position.y + 5;
+    camera.position.z = ball.position.z - distance * rotZ;
+    camera.lookAt(ball.position);
+  }
+
+  function updatePlayerPosition() {
+    ball.rotation.y += direction.x;
+    if (direction.y > 0.1 || direction.y < -0.1) {
+      const y = Math.cos(ball.rotation.y) * direction.y * 0.5;
+      const x = Math.sin(ball.rotation.y) * direction.y * 0.5;
+      ball.position.x += x;
+      ball.position.z += y;
+    }
+  }
+
   function update() {
     if (ball) {
+      direction.x = 0;
+      direction.y = 0;
       if (joystick && joystick._pressed) {
-        direction.x = joystick.deltaX() / 50;
-        direction.z = joystick.deltaY() / 50;
+        direction.x = -joystick.deltaX() / 500;
+        direction.y = -joystick.deltaY() / 50;
       }
       if (tiltAvailable) {
         direction.x = tiltValues.gamma * 3;
-        direction.z = tiltValues.beta * 3;
+        direction.y = tiltValues.beta * 3;
       }
-      const movement = direction.multiplyScalar(0.25);
-      ball.position.add(movement);
-      ball.position.clampLength(0, floorRadius - 1);
-      camera.lookAt(ball.position);
+      updatePlayerPosition();
+      updateCameraPosition();
     }
   }
 
