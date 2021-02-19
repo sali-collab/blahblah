@@ -156,12 +156,15 @@ function Healthcare(setScene) {
   }
 
   function stopAll() {
-    cubeSound.stop();
-    coneSound.stop();
-    cylinderSound.stop();
-    torousSound.stop();
-    torousKnotSound.stop();
+    try {
+      cubeSound.stop();
+      coneSound.stop();
+      cylinderSound.stop();
+      torousSound.stop();
+      torousKnotSound.stop();
+    } catch (e) { }
   }
+
 
   function voteNow() {
     stopAll();
@@ -412,7 +415,7 @@ function Healthcare(setScene) {
       direction.x = 0;
       direction.y = 0;
       if (joystick && joystick._pressed) {
-        direction.x = -joystick.deltaX() / 1000;
+        direction.x = -joystick.deltaX() / 1300;
         direction.y = -joystick.deltaY() / 100; // increase number to make it less sensitive
       }
       if (tiltAvailable) {

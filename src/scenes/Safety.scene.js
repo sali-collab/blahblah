@@ -159,12 +159,15 @@ function Safety(setScene) {
   }
 
   function stopAll() {
-    cubeSound.stop();
-    coneSound.stop();
-    cylinderSound.stop();
-    torousSound.stop();
-    torousKnotSound.stop();
+    try {
+      cubeSound.stop();
+      coneSound.stop();
+      cylinderSound.stop();
+      torousSound.stop();
+      torousKnotSound.stop();
+    } catch (e) { }
   }
+
 
   function voteNow() {
     stopAll();
