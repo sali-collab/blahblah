@@ -251,7 +251,7 @@ function Education(setScene) {
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
 
-    var planereadyToVote = new THREE.PlaneGeometry(426 / 400, 191 / 400);
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 450, 191 / 450);
     var texturereadyToVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/readyToVote.png'
     );
@@ -369,7 +369,7 @@ function Education(setScene) {
 
     updateBasic(Message);
     Message.translateX(1);
-    Message.translateY(-0.9);
+    Message.translateY(-1);
 
     updateBasic(readyToVote);
     readyToVote.translateX(0.8);

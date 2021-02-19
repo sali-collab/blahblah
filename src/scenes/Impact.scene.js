@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Impact2Scene from './Impact2.scene';
 import voteScene from './vote.scene';
 import FoodImpactScene from './FoodImpact.scene';
+import HealthImpactScene from './HealthImpact.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -63,11 +64,12 @@ function ImpactScene(setScene, color) {
     var fi = FoodImpactScene(setScene);
     setScene(fi);
   }
+
+  function goHealthInfo() {
+    var hi = HealthImpactScene(setScene);
+    setScene(hi);
+  }
   function initObjects() {
-
-
-
-
 
     var planeText = new THREE.PlaneGeometry(816 / 350, 290 / 350);
     var textureText = new THREE.TextureLoader().load('static/imgs/Impact_page/Text.png');
@@ -91,6 +93,9 @@ function ImpactScene(setScene, color) {
     FreeHealth = new THREE.Mesh(planeFreeHealth, materialFreeHealth);
     FreeHealth.position.set(-0.8, 1.5, 0.1);
     scene.add(FreeHealth);
+    FreeHealth.cursor = 'pointer';
+    FreeHealth.on('click', () => goHealthInfo());
+    FreeHealth.on('touchstart', () => goHealthInfo());
 
     var planeFrontArrow = new THREE.PlaneGeometry(178 / 300, 93 / 300);
     var textureFrontArrow = new THREE.TextureLoader().load('static/imgs/Impact_page/FrontArrow.png');
