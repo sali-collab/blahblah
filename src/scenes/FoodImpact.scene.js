@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import ImpactScene from './Impact.scene';
 
 
 // Loaders
@@ -10,10 +11,11 @@ var scene;
 //assets 
 
 var FoodSupport;
+var BackArrow;
 
 
 
-function ImpactScene(setScene,color) {
+function FoodImpactScene(setScene,color) {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
@@ -43,6 +45,11 @@ function ImpactScene(setScene,color) {
     spotLight.position.set(10, 10, 10);
   }
 
+  function goBackImpact() {
+    var bi = ImpactScene(setScene);
+    setScene(bi);
+  }
+
   function initObjects() {
    
     var planeFoodSupport = new THREE.PlaneGeometry(321/100, 179/100);
@@ -52,6 +59,15 @@ function ImpactScene(setScene,color) {
     FoodSupport.position.set(0,0,0);
     scene.add(FoodSupport);
  
+    var planeBackArrow = new THREE.PlaneGeometry(178 / 300, 93 / 300);
+    var textureBackArrow  = new THREE.TextureLoader().load('static/imgs/FoodImpact_page/BackArrow.png');
+    var materialBackArrow   = new THREE.MeshBasicMaterial({ map: textureBackArrow, transparent:true});
+    BackArrow = new THREE.Mesh(planeBackArrow, materialBackArrow);
+    BackArrow.position.set(-1.3,2.5,0.01);
+    scene.add(BackArrow);
+    BackArrow.cursor = 'pointer';
+    BackArrow.on('click', () => goBackImpact());
+    BackArrow.on('touchstart', ()=>goBackImpact());
 
   }
 
@@ -67,4 +83,4 @@ function ImpactScene(setScene,color) {
     destroy,
   };
 }
-export default ImpactScene;
+export default FoodImpactScene;
