@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import ImpactScene from './Impact.scene';
+import ImpactScene2 from './Impact2.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -9,12 +9,12 @@ var camera;
 var scene;
 //assets 
 
-var HealthSupport;
+var PaySupport;
 var BackArrow;
 
 
 
-function HealthImpactScene(setScene,color) {
+function PayImpactScene(setScene,color) {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
@@ -51,12 +51,12 @@ function HealthImpactScene(setScene,color) {
 
   function initObjects() {
    
-    var planeHealthSupport = new THREE.PlaneGeometry(321/100, 179/100);
-    var textureHealthSupport = new THREE.TextureLoader().load('static/imgs/HealthImpact_scene/HealthSupport.png');
-    var materialHealthSupport  = new THREE.MeshBasicMaterial({ map: textureHealthSupport  , transparent:true});
-    HealthSupport= new THREE.Mesh(planeHealthSupport, materialHealthSupport );
-    HealthSupport.position.set(0,0,0);-
-    scene.add(HealthSupport);
+    var planePaySupport = new THREE.PlaneGeometry(305/100, 73/100);
+    var texturePaySupport = new THREE.TextureLoader().load('static/imgs/PayImpact_page/PaySupport.png');
+    var materialPaySupport  = new THREE.MeshBasicMaterial({ map: texturePaySupport  , transparent:true});
+    PaySupport= new THREE.Mesh(planePaySupport, materialPaySupport );
+    PaySupport.position.set(0,0,0);-
+    scene.add(PaySupport);
 
     var planeBackArrow = new THREE.PlaneGeometry(178 / 300, 93 / 300);
     var textureBackArrow  = new THREE.TextureLoader().load('static/imgs/FoodImpact_page/BackArrow.png');
@@ -83,4 +83,4 @@ function HealthImpactScene(setScene,color) {
     destroy,
   };
 }
-export default HealthImpactScene;
+export default PayImpactScene;

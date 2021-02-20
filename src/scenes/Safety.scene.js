@@ -241,7 +241,7 @@ function Safety(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 15, 63 / 15);
+    var planeVote = new THREE.PlaneGeometry(113 / 10, 63 / 10);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Vote.png'
     );
@@ -282,7 +282,7 @@ function Safety(setScene) {
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
-    var planeBack = new THREE.PlaneGeometry(116 / 15, 63 / 15);
+    var planeBack = new THREE.PlaneGeometry(116 / 10, 63 / 10);
     var textureBack = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Back.png'
     );

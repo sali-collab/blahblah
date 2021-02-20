@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import Impact3Scene from './Impact3.scene';
 import ImpactScene from './Impact.scene';
+import PayImpactScene from './PayImpact.scene';
+
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -56,16 +58,13 @@ function Impact2Scene(setScene,color) {
     setScene(iss);
   }
 
+  function goPayImpact() {
+    var pi = PayImpactScene(setScene);
+    setScene(pi);
+  }
+
   function initObjects() {
    
-  
-
-    var planeInsurance = new THREE.PlaneGeometry(320/300, 349/300);
-    var textureInsurance = new THREE.TextureLoader().load('static/imgs/Impact2_page/Insurance.png');
-    var materialInsurance = new THREE.MeshBasicMaterial({ map: textureInsurance , transparent:true});
-    Insurance = new THREE.Mesh(planeInsurance, materialInsurance);
-    Insurance.position.set(0,2, 0);
-    scene.add(Insurance); 
 
     var planeSkillsTraining = new THREE.PlaneGeometry(327/400, 570/400);
     var textureSkillsTraining = new THREE.TextureLoader().load('static/imgs/Impact2_page/SkillsTraining.png');
@@ -81,6 +80,20 @@ function Impact2Scene(setScene,color) {
     Scholar.position.set(-1,-0.1, 0);
     scene.add(Scholar); 
    
+
+
+    var planeInsurance = new THREE.PlaneGeometry(320/300, 349/300);
+    var textureInsurance = new THREE.TextureLoader().load('static/imgs/Impact2_page/Insurance.png');
+    var materialInsurance = new THREE.MeshBasicMaterial({ map: textureInsurance , transparent:true});
+    Insurance = new THREE.Mesh(planeInsurance, materialInsurance);
+    Insurance.position.set(0,2, 0);
+    scene.add(Insurance); 
+    Insurance.cursor = 'pointer';
+    Insurance.on('click', goPayImpact);
+    Insurance.on('touchstart', goPayImpact);
+
+
+
     var planeFrontArrow = new THREE.PlaneGeometry(178/300, 93/300);
     var textureFrontArrow  = new THREE.TextureLoader().load('static/imgs/Impact2_page/FrontArrow.png');
     var materialFrontArrow  = new THREE.MeshBasicMaterial({ map: textureFrontArrow , transparent:true});

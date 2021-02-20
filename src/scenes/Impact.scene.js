@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import Impact2Scene from './Impact2.scene';
-import voteScene from './vote.scene';
+import DataVisScene from './DataVis.scene';
 import FoodImpactScene from './FoodImpact.scene';
 import HealthImpactScene from './HealthImpact.scene';
+import InvestImpactScene from './InvestImpact.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -56,7 +57,7 @@ function ImpactScene(setScene, color) {
   }
 
   function goImpactBk() {
-    var is = voteScene(setScene);
+    var is = DataVisScene(setScene);
     setScene(is);
   }
 
@@ -69,6 +70,12 @@ function ImpactScene(setScene, color) {
     var hi = HealthImpactScene(setScene);
     setScene(hi);
   }
+
+  function goInvestInfo() {
+    var ii = InvestImpactScene(setScene);
+    setScene(ii);
+  }
+
   function initObjects() {
 
     var planeText = new THREE.PlaneGeometry(816 / 350, 290 / 350);
@@ -84,6 +91,9 @@ function ImpactScene(setScene, color) {
     Investment = new THREE.Mesh(planeInvestment, materialInvestment);
     Investment.position.set(0, -2, 0.1);
     scene.add(Investment);
+    Investment.cursor = 'pointer';
+    Investment.on('click', () => goInvestInfo());
+    Investment.on('touchstart', () => goInvestInfo());
 
 
 
