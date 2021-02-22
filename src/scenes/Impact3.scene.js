@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 
-import Impact2Scene from './Impact2.scene';
+import ImpactSchoolScene from './ImpactSchool.scene';
+import ImpactPoliceScene from './ImpactPolice.scene';
+import Impact3Scene from './Impact3.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -50,6 +52,16 @@ function ImpactScene(setScene,color) {
     setScene(is);
   }
 
+  function goImpactSchool() {
+    var isb = ImpactSchoolScene(setScene);
+    setScene(isb);
+  }
+
+  function goImpactPo() {
+    var ip = ImpactPoliceScene(setScene);
+    setScene(ip);
+  }
+
   function initObjects() {
    
     var planePolice = new THREE.PlaneGeometry(421/300, 630/300);
@@ -58,13 +70,21 @@ function ImpactScene(setScene,color) {
     Police= new THREE.Mesh(planePolice, materialPolice);
     Police.position.set(-0.7,-1, 0);
     scene.add(Police); 
+    Police.cursor = 'pointer';
+    Police.on('click', goImpactPo);
+    Police.on('touchstart', goImpactPo);
+      scene.add(Police); 
 
     var planeBack2School = new THREE.PlaneGeometry(273/300, 389/300);
     var textureBack2School = new THREE.TextureLoader().load('static/imgs/Impact3_page/Back2School.png');
     var materialBack2School = new THREE.MeshBasicMaterial({ map: textureBack2School , transparent:true});
     Back2School= new THREE.Mesh(planeBack2School, materialBack2School);
-    Back2School.position.set(0.5,2, 0);
+    Back2School.position.set(0.5,2, 0.01);
     scene.add(Back2School); 
+    Back2School.cursor = 'pointer';
+    Back2School.on('click', goImpactSchool);
+    Back2School.on('touchstart', goImpactSchool);
+      scene.add(Back2School); 
 
     var planeBackArrow = new THREE.PlaneGeometry(178/300, 93/300);
     var textureBackArrow = new THREE.TextureLoader().load('static/imgs/Impact3_page/BackArrow.png');
@@ -92,4 +112,4 @@ function ImpactScene(setScene,color) {
     destroy,
   };
 }
-export default ImpactScene;
+export default Impact3Scene;

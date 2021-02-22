@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Impact2Scene from './Impact2.scene';
 
-
 // Loaders
 var textureLoader = new THREE.TextureLoader();
 var fontLoader = new THREE.FontLoader();
@@ -10,12 +9,12 @@ var camera;
 var scene;
 //assets 
 
-var InvestSupport;
+var SkillsSupport;
 var BackArrow;
 
 
 
-function InvestImpactScene(setScene,color) {
+function SkillsImpactScene(setScene,color) {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
@@ -46,21 +45,21 @@ function InvestImpactScene(setScene,color) {
   }
 
   function goBackImpact() {
-    var bi = ImpactScene(setScene);
+    var bi = Impact2Scene(setScene);
     setScene(bi);
   }
 
   function initObjects() {
    
-    var planeInvestSupport = new THREE.PlaneGeometry(373/110, 363/110);
-    var textureInvestSupport = new THREE.TextureLoader().load('static/imgs/InvestImpact_page/InvestSupport.png');
-    var materialInvestSupport = new THREE.MeshBasicMaterial({ map: textureInvestSupport  , transparent:true});
-    InvestSupport= new THREE.Mesh(planeInvestSupport, materialInvestSupport );
-    InvestSupport.position.set(0,0,0);
-    scene.add(InvestSupport);
- 
+    var planeSkillsSupport = new THREE.PlaneGeometry(321/100, 179/100);
+    var textureSkillsSupport = new THREE.TextureLoader().load('static/imgs/SkillsImpact_page/SkillsSupport1.png');
+    var materialSkillsSupport  = new THREE.MeshBasicMaterial({ map: textureSkillsSupport , transparent:true});
+    SkillsSupport= new THREE.Mesh(planeSkillsSupport, materialSkillsSupport);
+    SkillsSupport.position.set(0,0,0);-
+    scene.add(SkillsSupport);
+
     var planeBackArrow = new THREE.PlaneGeometry(178 / 300, 93 / 300);
-    var textureBackArrow  = new THREE.TextureLoader().load('static/imgs/InvestImpact_page/BackArrow.png');
+    var textureBackArrow  = new THREE.TextureLoader().load('static/imgs/SkillsImpact_page/BackArrow.png');
     var materialBackArrow   = new THREE.MeshBasicMaterial({ map: textureBackArrow, transparent:true});
     BackArrow = new THREE.Mesh(planeBackArrow, materialBackArrow);
     BackArrow.position.set(-1.3,2.5,0.01);
@@ -68,6 +67,7 @@ function InvestImpactScene(setScene,color) {
     BackArrow.cursor = 'pointer';
     BackArrow.on('click', () => goBackImpact());
     BackArrow.on('touchstart', ()=>goBackImpact());
+ 
 
   }
 
@@ -83,4 +83,4 @@ function InvestImpactScene(setScene,color) {
     destroy,
   };
 }
-export default InvestImpactScene;
+export default SkillsImpactScene;

@@ -257,7 +257,7 @@ function Safety(setScene) {
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
-    var planeMessage = new THREE.PlaneGeometry(152 / 20, 73 / 20);
+    var planeMessage = new THREE.PlaneGeometry(152 / 13, 73 / 13);
     var textureMessage = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Message.png'
     );
@@ -268,7 +268,7 @@ function Safety(setScene) {
     Message = new THREE.Mesh(planeMessage, materialMessage);
     Message.position.set(6, 19, 0);
 
-    var planereadyToVote = new THREE.PlaneGeometry(426 / 150, 191 / 150);
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 75, 191 / 75);
     var texturereadyToVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/readyToVote.png'
     );
@@ -390,11 +390,11 @@ function Safety(setScene) {
 
     updateBasic(Message);
     Message.translateX(12);
-    Message.translateY(-4.5);
+    Message.translateY(-6.3);
 
     updateBasic(readyToVote);
     readyToVote.translateX(12);
-    readyToVote.translateY(-7.5);
+    readyToVote.translateY(-10.3);
 
     updateBasic(Back);
     Back.translateX(-12);
@@ -425,7 +425,7 @@ function Safety(setScene) {
       direction.x = 0;
       direction.y = 0;
       if (joystick && joystick._pressed) {
-        direction.x = -joystick.deltaX() / 1000;
+        direction.x = -joystick.deltaX() / 1300;
         direction.y = -joystick.deltaY() / 100; // increase number to make it less sensitive
       }
       if (tiltAvailable) {

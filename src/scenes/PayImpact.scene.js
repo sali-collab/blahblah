@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import ImpactScene2 from './Impact2.scene';
+import Impact2Scene from './Impact2.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -45,7 +45,7 @@ function PayImpactScene(setScene,color) {
   }
 
   function goBackImpact() {
-    var bi = ImpactScene(setScene);
+    var bi = Impact2Scene(setScene);
     setScene(bi);
   }
 

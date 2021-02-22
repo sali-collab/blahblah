@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import Impact3Scene from './Impact3.scene';
 import ImpactScene from './Impact.scene';
 import PayImpactScene from './PayImpact.scene';
+import ScholarImpactScene from './ScholarImpact.scene';
+import SkillsImpactScene from './SkillsImpact.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -16,6 +18,7 @@ var Insurance;
 var Scholar;
 var SkillsTraining;
 var BackArrow;
+var SkillsImpact;
 
 
 function Impact2Scene(setScene,color) {
@@ -63,6 +66,17 @@ function Impact2Scene(setScene,color) {
     setScene(pi);
   }
 
+
+  function goScholarImpact() {
+    var si = ScholarImpactScene(setScene);
+    setScene(si);
+  }
+
+  function goSkillsImpact() {
+    var sis = SkillsImpactScene(setScene);
+    setScene(sis);
+  }
+
   function initObjects() {
    
 
@@ -79,6 +93,9 @@ function Impact2Scene(setScene,color) {
     Scholar = new THREE.Mesh(planeScholar, materialScholar);
     Scholar.position.set(-1,-0.1, 0);
     scene.add(Scholar); 
+    Scholar.cursor = 'pointer';
+    Scholar.on('click', goScholarImpact);
+    Scholar.on('touchstart', goScholarImpact);
    
 
 
@@ -113,6 +130,24 @@ function Impact2Scene(setScene,color) {
     BackArrow.cursor = 'pointer';
     BackArrow.on('click', goImpact1);
     BackArrow.on('touchstart', goImpact1);
+
+    /*var planeSkillsImpact = new THREE.PlaneGeometry(178/300, 93/300);
+    var textureSkillsImpact    = new THREE.TextureLoader().load('static/imgs/Impact2_page/SkillsTraining.png');
+    var materialSkillsImpact  = new THREE.MeshBasicMaterial({ map: textureBackArrow , transparent:true});
+    SkillsImpact  = new THREE.Mesh(planeBackArrow , materialBackArrow);
+    SkillsImpact .position.set(-1.4,-2,0);
+    scene.add(SkillsImpact); */
+
+
+    var planeSkillsTraining = new THREE.PlaneGeometry(327/400, 570/400);
+    var textureSkillsTraining = new THREE.TextureLoader().load('static/imgs/Impact2_page/SkillsTraining.png');
+    var materialSkillsTraining = new THREE.MeshBasicMaterial({ map: textureSkillsTraining , transparent:true});
+    SkillsTraining = new THREE.Mesh(planeSkillsTraining, materialSkillsTraining);
+    SkillsTraining.position.set(1,-2, 0.01);
+    scene.add(SkillsTraining); 
+    SkillsTraining.cursor = 'pointer';
+    SkillsTraining.on('click', goSkillsImpact);
+    SkillsTraining.on('touchstart', goSkillsImpact);
 
   }
 

@@ -232,7 +232,7 @@ function Healthcare(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 90, 63 / 90);
+    var planeVote = new THREE.PlaneGeometry(113 / 70, 63 / 70);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Vote.png'
     );
