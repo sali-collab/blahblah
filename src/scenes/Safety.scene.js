@@ -241,7 +241,7 @@ function Safety(setScene) {
   }
 
   function initObjects() {
-    var planeVote = new THREE.PlaneGeometry(113 / 10, 63 / 10);
+    var planeVote = new THREE.PlaneGeometry(113 / 90, 63 / 90);
     var textureVote = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Vote.png'
     );
@@ -250,14 +250,11 @@ function Safety(setScene) {
       transparent: true,
     });
     Vote = new THREE.Mesh(planeVote, materialVote);
-    Vote.position.set(5, 23, 0);
-    Vote.lookAt(camera.position);
     scene.add(Vote);
-    Vote.on('mouseover', overTheVote);
     Vote.on('click', overTheVote);
     Vote.on('touchstart', overTheVote);
 
-    var planeMessage = new THREE.PlaneGeometry(152 / 13, 73 / 13);
+    var planeMessage = new THREE.PlaneGeometry(152 / 60, 73 / 60);
     var textureMessage = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/Message.png'
     );
@@ -266,9 +263,8 @@ function Safety(setScene) {
       transparent: true,
     });
     Message = new THREE.Mesh(planeMessage, materialMessage);
-    Message.position.set(6, 19, 0);
 
-    var planereadyToVote = new THREE.PlaneGeometry(426 / 75, 191 / 75);
+    var planereadyToVote = new THREE.PlaneGeometry(426 / 450, 191 / 450);
     var texturereadyToVote = new THREE.TextureLoader().load(
       'static/imgs/Healthcare_page/readyToVote.png'
     );
@@ -277,12 +273,11 @@ function Safety(setScene) {
       transparent: true,
     });
     readyToVote = new THREE.Mesh(planereadyToVote, materialreadyToVote);
-    readyToVote.position.set(6, 16, 0);
     readyToVote.on('mouseover', voteNow);
     readyToVote.on('touchstart', voteNow);
     readyToVote.on('click', voteNow);
 
-    var planeBack = new THREE.PlaneGeometry(116 / 10, 63 / 10);
+    var planeBack = new THREE.PlaneGeometry(116 / 90, 63 / 90);
     var textureBack = new THREE.TextureLoader().load(
       'static/imgs/Education_page/Back.png'
     );
@@ -291,8 +286,6 @@ function Safety(setScene) {
       transparent: true,
     });
     Back = new THREE.Mesh(planeBack, materialBack);
-    Back.position.set(-8, 23, 0);
-    Back.lookAt(camera.position);
     scene.add(Back);
     Back.cursor = 'pointer';
     Back.on('click', clickBk);
@@ -380,24 +373,24 @@ function Safety(setScene) {
     obj.position.copy(camera.position);
     obj.rotation.copy(camera.rotation);
     obj.updateMatrix();
-    obj.translateZ(-80);
-    obj.translateY(30);
+    obj.translateZ(-10);
+    obj.translateY(3.75);
   }
 
   function updatePositionUI() {
     updateBasic(Vote);
-    Vote.translateX(12);
+    Vote.translateX(1.5);
 
     updateBasic(Message);
-    Message.translateX(12);
-    Message.translateY(-6.3);
+    Message.translateX(1);
+    Message.translateY(-1);
 
     updateBasic(readyToVote);
-    readyToVote.translateX(12);
-    readyToVote.translateY(-10.3);
+    readyToVote.translateX(0.8);
+    readyToVote.translateY(-1.75);
 
     updateBasic(Back);
-    Back.translateX(-12);
+    Back.translateX(-1.5);
   }
 
   function updateCameraPosition() {
@@ -409,6 +402,7 @@ function Safety(setScene) {
     camera.position.z = ball.position.z - distance * rotZ;
     camera.lookAt(ball.position);
   }
+
 
   function updatePlayerPosition() {
     ball.rotation.y += direction.x;

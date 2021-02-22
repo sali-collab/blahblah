@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import ImpactSchoolScene from './ImpactSchool.scene';
 import ImpactPoliceScene from './ImpactPolice.scene';
-import Impact3Scene from './Impact3.scene';
+import Impact2Scene from './Impact2.scene';
 
 // Loaders
 var textureLoader = new THREE.TextureLoader();
@@ -17,7 +17,7 @@ var Back2School;
 var BackArrow;
 
 
-function ImpactScene(setScene,color) {
+function Impact3Scene(setScene,color) {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
